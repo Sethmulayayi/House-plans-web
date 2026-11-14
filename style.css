@@ -1627,7 +1627,9 @@
 
       .auth-shell {
         display: grid;
-        grid-template-columns: minmax(0, 1fr);
+        grid-template-columns: 1fr;
+        width: min(100%, 760px);
+        margin-inline: auto;
         gap: 26px;
         align-items: stretch;
       }
