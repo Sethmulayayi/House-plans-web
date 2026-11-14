@@ -26,9 +26,14 @@ const tabs = document.querySelectorAll('.auth-tab');
       const registerForm = document.querySelector('.auth-card.active form');
       const registerStatus = document.getElementById('register-status');
       const registerPasswordInput = document.getElementById('register-password');
+      const loginForm = cards[1].querySelector('form');
+      const loginIdentifierInput = document.getElementById('login-email');
+      const loginPasswordInput = document.getElementById('login-password');
+      const loginStatus = document.getElementById('login-status');
       const registerProfileFields = {
         firstName: document.getElementById('first-name'),
         lastName: document.getElementById('last-name'),
+        phoneCountryCode: document.getElementById('register-phone-country'),
         phone: document.getElementById('register-phone'),
         email: document.getElementById('register-email'),
         accountType: document.getElementById('account-type'),
@@ -37,7 +42,7 @@ const tabs = document.querySelectorAll('.auth-tab');
       const menuToggle = document.querySelector('.menu-toggle');
       const navigation = document.querySelector('.nav-links');
       const pageLinks = document.querySelectorAll('.nav-links a[data-page]');
-      const availablePages = ['marketplace', 'featured', 'upload', 'features', 'process', 'reviews', 'contact'];
+      const availablePages = ['marketplace', 'featured', 'upload', 'contact'];
       const requestedPage = new URLSearchParams(window.location.search).get('page');
       const currentPage = availablePages.includes(requestedPage) ? requestedPage : 'marketplace';
       const plansGrid = document.querySelector('.plans-grid');
@@ -48,6 +53,7 @@ const tabs = document.querySelectorAll('.auth-tab');
       let selectedPlan = null;
       let savedPlanRatings = {};
       let savedUploadedPlans = [];
+      let savedProfile = null;
 
       try {
         const storedPlans = JSON.parse(localStorage.getItem('edp-uploaded-plans') || '[]');
@@ -59,20 +65,41 @@ const tabs = document.querySelectorAll('.auth-tab');
       }
 
       try {
-        const savedProfile = JSON.parse(localStorage.getItem('edp-account-profile') || 'null');
+        savedProfile = JSON.parse(localStorage.getItem('edp-account-profile') || 'null');
         if (savedProfile && typeof savedProfile === 'object') {
           Object.entries(registerProfileFields).forEach(([key, field]) => {
             if (typeof savedProfile[key] === 'string') {
               field.value = savedProfile[key];
             }
           });
+          if (!savedProfile.phoneCountryCode && typeof savedProfile.phone === 'string' && savedProfile.phone.startsWith('+')) {
+            const savedPhone = savedProfile.phone.replace(/[\s()-]/g, '');
+            const matchingCode = Array.from(registerProfileFields.phoneCountryCode.options)
+              .map((option) => option.value)
+              .filter((code) => savedPhone.startsWith(code))
+              .sort((first, second) => second.length - first.length)[0];
+            if (matchingCode) {
+              registerProfileFields.phoneCountryCode.value = matchingCode;
+              registerProfileFields.phone.value = savedPhone.slice(matchingCode.length);
+            }
+          }
           registerStatus.textContent = 'Your profile is saved in this browser. Enter your password to update it.';
         }
       } catch {
         registerStatus.textContent = 'A saved profile could not be loaded from this browser.';
       }
 
-      registerForm.addEventListener('submit', (event) => {
+      async function hashPassword(password, salt) {
+        const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveBits']);
+        const derivedBits = await crypto.subtle.deriveBits(
+          { name: 'PBKDF2', salt, iterations: 120000, hash: 'SHA-256' },
+          key,
+          256,
+        );
+        return Array.from(new Uint8Array(derivedBits), (byte) => byte.toString(16).padStart(2, '0')).join('');
+      }
+
+      registerForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         if (!registerProfileFields.phone.value.trim() && !registerProfileFields.email.value.trim()) {
           registerStatus.textContent = 'Enter a phone number or email address to save your profile.';
@@ -82,14 +109,61 @@ const tabs = document.querySelectorAll('.auth-tab');
         const profile = Object.fromEntries(
           Object.entries(registerProfileFields).map(([key, field]) => [key, field.value.trim()]),
         );
-
         try {
+          const passwordSalt = crypto.getRandomValues(new Uint8Array(16));
+          profile.passwordSalt = Array.from(passwordSalt, (byte) => byte.toString(16).padStart(2, '0')).join('');
+          profile.passwordHash = await hashPassword(registerPasswordInput.value, passwordSalt);
           localStorage.setItem('edp-account-profile', JSON.stringify(profile));
+          savedProfile = profile;
           registerPasswordInput.value = '';
           registerStatus.textContent = 'Profile saved in this browser. This demo does not create an online account.';
         } catch {
           registerStatus.textContent = 'Could not save your profile in this browser. Check your browser storage settings.';
         }
+      });
+
+      loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        loginStatus.textContent = '';
+
+        if (!savedProfile) {
+          loginStatus.textContent = 'No saved profile was found in this browser. Register first.';
+          return;
+        }
+
+        if (typeof savedProfile.passwordHash !== 'string' || typeof savedProfile.passwordSalt !== 'string') {
+          loginStatus.textContent = 'This saved profile has no local password. Register again to set one.';
+          return;
+        }
+
+        const enteredIdentifier = loginIdentifierInput.value.trim();
+        const normalizePhone = (phone) => phone.replace(/\D/g, '').replace(/^00/, '');
+        const enteredPhone = normalizePhone(enteredIdentifier);
+        const savedLocalPhone = normalizePhone(savedProfile.phone || '');
+        const savedInternationalPhone = normalizePhone(savedProfile.phoneCountryCode || '')
+          + savedLocalPhone.replace(/^0/, '');
+        const matchesContact = enteredIdentifier.toLowerCase() === (savedProfile.email || '').toLowerCase()
+          || (enteredPhone && (enteredPhone === savedInternationalPhone || enteredPhone === savedLocalPhone));
+
+        if (!matchesContact) {
+          loginStatus.textContent = 'Email/phone or password is incorrect. Check your details and try again.';
+          return;
+        }
+
+        try {
+          const saltBytes = savedProfile.passwordSalt.match(/.{2}/g) || [];
+          const passwordSalt = Uint8Array.from(saltBytes, (byte) => Number.parseInt(byte, 16));
+          const passwordHash = await hashPassword(loginPasswordInput.value, passwordSalt);
+          if (passwordSalt.length !== 16 || passwordHash !== savedProfile.passwordHash) {
+            loginStatus.textContent = 'Email/phone or password is incorrect. Check your details and try again.';
+            return;
+          }
+        } catch {
+          loginStatus.textContent = 'Local password verification is unavailable in this browser.';
+          return;
+        }
+
+        loginStatus.textContent = `Welcome back, ${savedProfile.firstName || 'there'}. You are signed in on this browser.`;
       });
 
       try {
@@ -165,12 +239,14 @@ const tabs = document.querySelectorAll('.auth-tab');
         menuToggle.addEventListener('click', () => {
           const isOpen = navigation.classList.toggle('is-open');
           menuToggle.setAttribute('aria-expanded', String(isOpen));
+          menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
         });
 
         pageLinks.forEach((link) => {
           link.addEventListener('click', () => {
             navigation.classList.remove('is-open');
             menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Open navigation');
           });
         });
 
@@ -178,6 +254,7 @@ const tabs = document.querySelectorAll('.auth-tab');
           if (!navigation.contains(event.target) && !menuToggle.contains(event.target)) {
             navigation.classList.remove('is-open');
             menuToggle.setAttribute('aria-expanded', 'false');
+            menuToggle.setAttribute('aria-label', 'Open navigation');
           }
         });
       }
