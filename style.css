@@ -2286,9 +2286,7 @@
       h2,
       h3,
       h4,
-      .brand,
-      .plan-info strong,
-      .price {
+      .brand {
         font-family: "Cormorant Garamond", Georgia, serif;
         letter-spacing: 0;
       }
@@ -2475,12 +2473,17 @@
       }
 
       .plan-info strong {
+        font-family: "Manrope", sans-serif;
         font-size: 1.65rem;
+        font-weight: 700;
       }
 
       .price {
-        color: var(--primary-dark);
+        color: var(--gold-light);
+        font-family: "Manrope", sans-serif;
         font-size: 1.55rem;
+        font-variant-numeric: tabular-nums;
+        font-weight: 800;
       }
 
       .tag {
