@@ -2883,6 +2883,12 @@
         overflow-wrap: anywhere;
       }
 
+      .contact-value.handwritten {
+        font-family: "Caveat", cursive;
+        font-size: clamp(2rem, 3vw, 2.6rem);
+        font-weight: 600;
+      }
+
       .contact-icon,
       .email-icon,
       .whatsapp-icon,
