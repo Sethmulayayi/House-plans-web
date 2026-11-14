@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <title>Expertise Design Plans | Buy and Sell House Plans</title>
     <meta
       name="description"
@@ -31,7 +32,11 @@
           <span>Expertise Design Plans</span>
         </a>
 
-        <nav class="nav-links" aria-label="Main navigation">
+        <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="main-navigation">
+          <span class="menu-toggle-bar" aria-hidden="true"></span>
+        </button>
+
+        <nav class="nav-links" id="main-navigation" aria-label="Main navigation">
           <a href="?page=marketplace" data-page="marketplace">Marketplace</a>
           <a href="?page=featured" data-page="featured">Featured</a>
           <a href="?page=upload" data-page="upload">Upload</a>
@@ -353,7 +358,7 @@
         <div class="container">
           <div class="upload-box">
             <h3>Upload a Plan &amp; Details</h3>
-            <p>Enter the plan details, add a photo of the house, and attach the plan files for your listing preview.</p>
+            <p>Enter the plan details, add a photo of the house, and attach the plan files for your listing preview. Listings are saved in this browser; online publishing is not connected.</p>
             <p class="verification-notice">New listings start as Verification pending. Their licensing and approval documents must be checked against the requirements of the relevant authorities before they can be advertised as verified.</p>
 
             <div class="listing-fields-grid" aria-label="House plan listing details">

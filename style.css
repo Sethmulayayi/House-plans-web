@@ -3054,6 +3054,7 @@
         }
       }
 
+      @media (prefers-color-scheme: dark) {
       body,
       main,
       .section,
@@ -3138,4 +3139,253 @@
       .small-text,
       .contact-label {
         opacity: 0.8;
+      }
+      }
+
+      @media (max-width: 700px) {
+        .nav {
+          position: relative;
+        }
+
+        .menu-toggle {
+          display: inline-flex;
+          order: 3;
+          width: 42px;
+          height: 42px;
+          border-color: var(--line);
+          color: var(--text);
+          flex-shrink: 0;
+        }
+
+        .nav-links,
+        .nav-links.is-open {
+          flex: none;
+          order: 4;
+          position: absolute;
+          top: calc(100% + 1px);
+          right: 0;
+          left: 0;
+          z-index: 11;
+          display: none;
+          flex-direction: column;
+          align-items: stretch;
+          padding: 8px;
+          border: 1px solid var(--line);
+          background: var(--surface);
+          box-shadow: var(--card-shadow);
+        }
+
+        .nav-links.is-open {
+          display: flex;
+        }
+
+        .nav-links a {
+          padding: 12px 14px;
+        }
+
+        .nav-actions {
+          margin-left: auto;
+        }
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          color-scheme: light;
+          --bg: #f3f5f0;
+          --surface: #ffffff;
+          --text: #202820;
+          --muted: #647064;
+          --line: rgba(32, 48, 36, 0.16);
+          --shadow: 0 24px 60px rgba(32, 48, 36, 0.12);
+          --card-shadow: 0 12px 28px rgba(32, 48, 36, 0.09);
+          --forest: #294438;
+          --forest-deep: #182b21;
+          --ivory: #202820;
+          --champagne: #ffffff;
+          --charcoal: #202820;
+        }
+
+        body,
+        main {
+          background: #f3f5f0;
+          color: #202820;
+        }
+
+        body::before {
+          background: linear-gradient(118deg, transparent 12%, rgba(196, 161, 91, 0.07) 42%, transparent 68%);
+        }
+
+        .topbar {
+          border-bottom-color: rgba(32, 48, 36, 0.14);
+          background: rgba(255, 255, 255, 0.94);
+        }
+
+        .brand,
+        .nav-links {
+          color: #26372c;
+        }
+
+        .nav-links a.active,
+        .nav-links a.active:hover {
+          background: rgba(41, 68, 56, 0.08);
+          color: #294438;
+        }
+
+        .nav-links a:hover {
+          color: #294438;
+          background: rgba(41, 68, 56, 0.06);
+        }
+
+        .menu-toggle {
+          border-color: rgba(32, 48, 36, 0.2);
+          background: #fff;
+          color: #26372c;
+        }
+
+        .hero {
+          background: linear-gradient(118deg, #14251d, #294438 64%, #49665a);
+          color: #f4efe9;
+        }
+
+        .hero h1,
+        .hero .hero-message strong {
+          color: #f4efe9;
+        }
+
+        .hero .lead,
+        .hero .proof-item span,
+        .hero .hero-message p {
+          color: rgba(247, 243, 233, 0.76);
+        }
+
+        .section-head p,
+        .wallet-card p,
+        .feature-box p,
+        .process-step p,
+        .upload-box p,
+        .form-group label,
+        .small-text {
+          color: #59665b;
+        }
+
+        .wallet-card,
+        .feature-box,
+        .process-step,
+        .quote-card,
+        .auth-panel,
+        .upload-box,
+        .contact-item {
+          border-color: rgba(32, 48, 36, 0.13);
+          background: #ffffff;
+          color: #202820;
+        }
+
+        .wallet-card h3,
+        .feature-box h3,
+        .process-step h3,
+        .auth-card h3,
+        .upload-box h3,
+        .section-head h2,
+        .section-head h2.design-section-title,
+        .plan-title,
+        .plan-spec strong {
+          color: #202820;
+        }
+
+        .heading-highlight {
+          color: #294438;
+        }
+
+        .plan-card {
+          border-color: rgba(32, 48, 36, 0.13);
+          background: #ffffff;
+          color: #202820;
+        }
+
+        .plan-description,
+        .plan-spec span,
+        .quote-card p {
+          color: #59665b;
+        }
+
+        .plan-specs,
+        .plan-spec:nth-child(3n + 2),
+        .plan-spec:nth-child(3n + 3),
+        .plan-spec:nth-child(n + 4) {
+          border-color: rgba(32, 48, 36, 0.14);
+        }
+
+        .upload-box {
+          background: #ffffff;
+        }
+
+        .dimension-field label {
+          color: #38463b;
+        }
+
+        .dimension-field input,
+        .dimension-field textarea,
+        .form-group input,
+        .form-group select {
+          border-color: rgba(32, 48, 36, 0.2);
+          background: #ffffff;
+          color: #202820;
+        }
+
+        .listing-photo-picker,
+        .upload-card,
+        .upload-file-item {
+          background: #f4f6f1;
+          color: #202820;
+        }
+
+        .auth-left,
+        .cta-box,
+        footer {
+          background: linear-gradient(135deg, #14251d, #294438);
+          color: #f4efe9;
+        }
+
+        .auth-left h3,
+        .auth-left p,
+        .auth-left .auth-list,
+        .cta-box h2,
+        .cta-box p,
+        .footer-meta .rights,
+        .made-by {
+          color: #f4efe9;
+        }
+
+        .cta {
+          background: #edf1eb;
+        }
+
+        .contact-item {
+          background: rgba(255, 255, 255, 0.08);
+        }
+
+        .contact-label {
+          color: rgba(247, 243, 233, 0.72);
+        }
+
+        .contact-value {
+          color: #dfc583;
+        }
+
+        .payment-dialog {
+          border-color: rgba(32, 48, 36, 0.18);
+          background: #ffffff;
+          color: #202820;
+        }
+
+        .payment-dialog p {
+          color: #59665b;
+        }
+
+        .payment-dialog-close,
+        .purchase-summary {
+          border-color: rgba(32, 48, 36, 0.14);
+          background: #f3f5f0;
+          color: #202820;
+        }
       }
