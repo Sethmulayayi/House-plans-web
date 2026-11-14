@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <title>Expertise Design Plans | Buy and Sell House Plans</title>
     <meta
       name="description"
@@ -31,7 +32,11 @@
           <span>Expertise Design Plans</span>
         </a>
 
-        <nav class="nav-links" aria-label="Main navigation">
+        <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="main-navigation">
+          <span class="menu-toggle-bar" aria-hidden="true"></span>
+        </button>
+
+        <nav class="nav-links" id="main-navigation" aria-label="Main navigation">
           <a href="?page=marketplace" data-page="marketplace">Marketplace</a>
           <a href="?page=featured" data-page="featured">Featured</a>
           <a href="?page=upload" data-page="upload">Upload</a>
@@ -353,7 +358,7 @@
         <div class="container">
           <div class="upload-box">
             <h3>Upload a Plan &amp; Details</h3>
-            <p>Enter the plan details, add a photo of the house, and attach the plan files for your listing preview.</p>
+            <p>Enter the plan details, add a photo of the house, and attach the plan files for your listing preview. Listings are saved in this browser; online publishing is not connected.</p>
             <p class="verification-notice">New listings start as Verification pending. Their licensing and approval documents must be checked against the requirements of the relevant authorities before they can be advertised as verified.</p>
 
             <div class="listing-fields-grid" aria-label="House plan listing details">
@@ -551,10 +556,10 @@
             </div>
 
             <div class="contact-details">
-              <div class="contact-item">
-                <span class="contact-label">WhatsApp</span>
+              <a class="contact-item whatsapp-contact" href="https://wa.me/260774613994" target="_blank" rel="noreferrer" aria-label="Chat with us on WhatsApp at +260 774 613 994">
+                <span class="contact-icon whatsapp-icon" aria-hidden="true">W</span>
                 <span class="contact-value">+260 774 613 994</span>
-              </div>
+              </a>
               <div class="contact-item">
                 <span class="contact-label">Mobile money</span>
                 <span class="contact-value">Airtel Money / MTN MoMo / Zamtel Money</span>

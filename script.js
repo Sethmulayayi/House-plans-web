@@ -299,7 +299,9 @@ const tabs = document.querySelectorAll('.auth-tab');
       }
 
       async function createListingImageData(imageFile) {
-        const image = await createImageBitmap(imageFile);
+        const image = typeof createImageBitmap === 'function'
+          ? await createImageBitmap(imageFile)
+          : await loadListingImage(imageFile);
         const scale = Math.min(1, 1200 / Math.max(image.width, image.height));
         const canvas = document.createElement('canvas');
         canvas.width = Math.max(1, Math.round(image.width * scale));
@@ -308,8 +310,26 @@ const tabs = document.querySelectorAll('.auth-tab');
         context.fillStyle = '#ffffff';
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.drawImage(image, 0, 0, canvas.width, canvas.height);
-        image.close();
+        if (typeof image.close === 'function') {
+          image.close();
+        }
         return canvas.toDataURL('image/jpeg', 0.82);
+      }
+
+      function loadListingImage(imageFile) {
+        return new Promise((resolve, reject) => {
+          const image = new Image();
+          const objectUrl = URL.createObjectURL(imageFile);
+          image.onload = () => {
+            URL.revokeObjectURL(objectUrl);
+            resolve(image);
+          };
+          image.onerror = () => {
+            URL.revokeObjectURL(objectUrl);
+            reject(new Error('The selected image could not be decoded.'));
+          };
+          image.src = objectUrl;
+        });
       }
 
       function addUploadedPlanPreview(listing) {
