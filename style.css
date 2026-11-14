@@ -2885,7 +2885,7 @@
 
       .contact-value.handwritten {
         font-family: "Caveat", cursive;
-        font-size: clamp(2rem, 3vw, 2.6rem);
+        font-size: clamp(1.7rem, 2.5vw, 2.2rem);
         font-weight: 600;
       }
 
