@@ -1908,6 +1908,37 @@
         justify-content: center;
       }
 
+      .whatsapp-contact {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        min-height: 82px;
+        text-decoration: none;
+        transition: border-color 0.2s ease, background-color 0.2s ease;
+      }
+
+      .whatsapp-contact:hover {
+        border-color: rgba(223, 197, 131, 0.55);
+        background: rgba(247, 243, 233, 0.09);
+      }
+
+      .whatsapp-contact .contact-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        font-size: 1.35rem;
+        flex: 0 0 54px;
+      }
+
+      .whatsapp-contact .contact-value {
+        color: #f4efe9;
+        font-family: "Manrope", sans-serif;
+        font-size: clamp(1.05rem, 2vw, 1.4rem);
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
       .contact-label {
         display: block;
         font-size: 0.76rem;
@@ -2881,12 +2912,6 @@
         font-family: "Cormorant Garamond", Georgia, serif;
         font-size: 1.8rem;
         overflow-wrap: anywhere;
-      }
-
-      .contact-value.handwritten {
-        font-family: "Caveat", cursive;
-        font-size: clamp(1.7rem, 2.5vw, 2.2rem);
-        font-weight: 600;
       }
 
       .contact-icon,
