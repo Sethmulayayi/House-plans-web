@@ -3738,7 +3738,25 @@
       .section,
       .hero,
       .filter-panel,
-      .plans-grid,
+      .plans-grid {
+        background: #15130f !important;
+        color: #f4efe9 !important;
+      }
+
+      body::before {
+        background:
+          radial-gradient(ellipse at 14% 0%, rgba(196, 161, 91, 0.1), transparent 40%),
+          radial-gradient(ellipse at 88% 28%, rgba(178, 109, 70, 0.08), transparent 38%);
+      }
+
+      .hero {
+        background: linear-gradient(120deg, #17140f, #211a12 72%, #181612) !important;
+      }
+
+      h1 {
+        color: #f4efe9;
+      }
+
       .plan-card,
       .wallet-card,
       .feature-box,
@@ -3760,8 +3778,23 @@
       .payment-dialog,
       .purchase-summary,
       .cta-box {
-        background: #000 !important;
+        background: #1d1a16 !important;
         color: #f4efe9 !important;
+      }
+
+      .hero .lead,
+      .hero .proof-item span,
+      .hero .hero-message p {
+        color: rgba(244, 239, 233, 0.78) !important;
+      }
+
+      .hero .proof-item strong,
+      .hero .hero-message strong {
+        color: #f4efe9 !important;
+      }
+
+      .hero .hero-highlight {
+        color: #d99a70 !important;
       }
 
       .auth-panel,
@@ -3789,7 +3822,6 @@
       .plan-spec span,
       .featured-header h2,
       .section-head h2,
-      .section-head h2 .heading-highlight,
       .section-head p,
       .contact-label,
       .contact-value,
@@ -3802,6 +3834,10 @@
       .form-group label,
       .small-text {
         color: #f4efe9 !important;
+      }
+
+      .section-head h2 .heading-highlight {
+        color: #d99a70 !important;
       }
 
       .plan-spec span,
