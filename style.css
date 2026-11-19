@@ -2901,34 +2901,33 @@
 
       :root {
         color-scheme: light;
-        --bg: #f3f5f1;
+        --bg: #f6f2eb;
         --surface: #ffffff;
         --primary: #bd744b;
         --primary-dark: #815033;
-        --text: #202b27;
-        --muted: #64716b;
-        --line: rgba(32, 54, 45, 0.12);
-        --shadow: 0 24px 64px rgba(27, 47, 38, 0.12);
-        --card-shadow: 0 12px 30px rgba(27, 47, 38, 0.08);
+        --text: #302b25;
+        --muted: #70685f;
+        --line: rgba(48, 43, 37, 0.12);
+        --shadow: 0 24px 64px rgba(52, 41, 28, 0.12);
+        --card-shadow: 0 12px 30px rgba(52, 41, 28, 0.08);
         --forest: #17473b;
         --forest-deep: #102f28;
         --gold: #bd744b;
         --gold-light: #d99a70;
-        --ivory: #202b27;
+        --ivory: #302b25;
         --champagne: #ffffff;
-        --charcoal: #202b27;
+        --charcoal: #302b25;
       }
 
       body {
-        background: #f3f5f1;
-        color: #202b27;
+        background: #f6f2eb;
+        color: #302b25;
       }
 
       body::before {
         background:
-          radial-gradient(ellipse at 10% 12%, rgba(108, 151, 125, 0.12), transparent 34%),
-          radial-gradient(ellipse at 92% 38%, rgba(206, 153, 114, 0.09), transparent 30%),
-          repeating-linear-gradient(0deg, transparent 0 39px, rgba(28, 67, 53, 0.025) 40px);
+          radial-gradient(ellipse at 10% 12%, rgba(196, 161, 91, 0.12), transparent 36%),
+          radial-gradient(ellipse at 92% 38%, rgba(189, 116, 75, 0.09), transparent 32%);
         animation: none;
       }
 
@@ -2999,27 +2998,27 @@
       .hero {
         padding: 66px 0 56px;
         background:
-          linear-gradient(90deg, rgba(243, 245, 241, 0.98) 0%, rgba(243, 245, 241, 0.94) 47%, rgba(243, 245, 241, 0.45) 100%),
-          #e6ece5;
-        color: #202b27;
+          linear-gradient(90deg, rgba(246, 242, 235, 0.98) 0%, rgba(246, 242, 235, 0.94) 47%, rgba(246, 242, 235, 0.45) 100%),
+          #eee6d9;
+        color: #302b25;
       }
 
       h1 {
         max-width: 700px;
-        color: #173e34;
+        color: #302b25;
         font-size: 4.4rem;
         line-height: 0.98;
         -webkit-text-stroke: 0;
       }
 
       .hero-highlight {
-        color: #bd744b;
+        color: #b26d46;
         background: none;
         -webkit-text-stroke: 0;
       }
 
       .lead {
-        color: #56645d;
+        color: #70685f;
       }
 
       .browse-plans-link {
@@ -3090,7 +3089,7 @@
 
       .section-head h2,
       .section-head h2.design-section-title {
-        color: #173e34;
+        color: #302b25;
         font-size: 3.2rem;
       }
 
@@ -3099,7 +3098,7 @@
       }
 
       .heading-highlight {
-        color: #173e34;
+        color: #b26d46;
       }
 
       .wallet-card,
@@ -3869,28 +3868,30 @@
       @media (prefers-color-scheme: light) {
         :root {
           color-scheme: light;
-          --bg: #f3f5f0;
+          --bg: #f6f2eb;
           --surface: #ffffff;
-          --text: #202820;
-          --muted: #647064;
-          --line: rgba(32, 48, 36, 0.16);
-          --shadow: 0 24px 60px rgba(32, 48, 36, 0.12);
-          --card-shadow: 0 12px 28px rgba(32, 48, 36, 0.09);
+          --text: #302b25;
+          --muted: #70685f;
+          --line: rgba(48, 43, 37, 0.14);
+          --shadow: 0 24px 60px rgba(52, 41, 28, 0.12);
+          --card-shadow: 0 12px 28px rgba(52, 41, 28, 0.09);
           --forest: #294438;
           --forest-deep: #182b21;
-          --ivory: #202820;
+          --ivory: #302b25;
           --champagne: #ffffff;
-          --charcoal: #202820;
+          --charcoal: #302b25;
         }
 
         body,
         main {
-          background: #f3f5f0;
-          color: #202820;
+          background: #f6f2eb;
+          color: #302b25;
         }
 
         body::before {
-          background: linear-gradient(118deg, transparent 12%, rgba(196, 161, 91, 0.07) 42%, transparent 68%);
+          background:
+            radial-gradient(ellipse at 10% 12%, rgba(196, 161, 91, 0.12), transparent 36%),
+            radial-gradient(ellipse at 92% 38%, rgba(189, 116, 75, 0.09), transparent 32%);
         }
 
         .topbar {
@@ -3921,19 +3922,21 @@
         }
 
         .hero {
-          background: linear-gradient(118deg, #000000, #0d0d0d 64%, #211b0d);
-          color: #f4efe9;
+          background:
+            linear-gradient(90deg, rgba(246, 242, 235, 0.98) 0%, rgba(246, 242, 235, 0.94) 47%, rgba(246, 242, 235, 0.45) 100%),
+            #eee6d9;
+          color: #302b25;
         }
 
         .hero h1,
         .hero .hero-message strong {
-          color: #f4efe9;
+          color: #302b25;
         }
 
         .hero .lead,
         .hero .proof-item span,
         .hero .hero-message p {
-          color: rgba(247, 243, 233, 0.76);
+          color: #70685f;
         }
 
         .section-head p,
@@ -3967,11 +3970,11 @@
         .section-head h2.design-section-title,
         .plan-title,
         .plan-spec strong {
-          color: #202820;
+          color: #302b25;
         }
 
         .heading-highlight {
-          color: #294438;
+          color: #b26d46;
         }
 
         .plan-card {
