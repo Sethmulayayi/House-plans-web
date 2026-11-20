@@ -1,3 +1,48 @@
+const themeToggle = document.getElementById('theme-toggle');
+const themeToggleLabel = document.getElementById('theme-toggle-label');
+const themeStatus = document.getElementById('theme-status');
+const themePreferenceKey = 'edp-theme-preference';
+
+function getInitialTheme() {
+  try {
+    const savedTheme = localStorage.getItem(themePreferenceKey);
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      return savedTheme;
+    }
+  } catch (error) {
+    console.error('Could not read the saved theme preference.', error);
+    themeStatus.textContent = 'Theme preference could not be read; using your system setting.';
+  }
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function setTheme(theme, persist = false) {
+  document.documentElement.dataset.theme = theme;
+  const nextTheme = theme === 'dark' ? 'light' : 'dark';
+  themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
+  themeToggle.setAttribute('aria-label', `Switch to ${nextTheme} mode`);
+  themeToggleLabel.textContent = `${nextTheme === 'dark' ? 'Dark' : 'Light'} mode`;
+
+  if (!persist) {
+    return;
+  }
+
+  try {
+    localStorage.setItem(themePreferenceKey, theme);
+    themeStatus.textContent = `${theme === 'dark' ? 'Dark' : 'Light'} mode enabled.`;
+  } catch (error) {
+    console.error('Could not save the theme preference.', error);
+    themeStatus.textContent = 'Theme changed for this session, but could not be saved.';
+  }
+}
+
+setTheme(getInitialTheme());
+themeToggle.addEventListener('click', () => {
+  const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  setTheme(nextTheme, true);
+});
+
 const tabs = document.querySelectorAll('.auth-tab');
       const cards = document.querySelectorAll('.auth-card');
       const uploadInput = document.getElementById('file-input');

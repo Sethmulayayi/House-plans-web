@@ -4729,4 +4729,231 @@
         color: var(--page-muted) !important;
       }
 
+      .skip-link {
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 1000;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        background: var(--forest-deep);
+        color: var(--ivory);
+        box-shadow: var(--card-shadow);
+        transform: translateY(calc(-100% - 1rem));
+        transition: transform 160ms ease;
+      }
+
+      .skip-link:focus-visible {
+        transform: translateY(0);
+      }
+
+      :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+        outline: 3px solid var(--gold);
+        outline-offset: 3px;
+      }
+
+      .theme-toggle {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.6rem 0.9rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--text);
+        font: inherit;
+        font-size: 0.85rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      :root[data-theme="light"] {
+        color-scheme: light;
+        --theme-background: #fbfcfa;
+        --theme-surface: #ffffff;
+        --theme-elevated: #f3f6f3;
+        --theme-ink: #20372f;
+        --theme-muted: #596a62;
+        --theme-border: #e1e8e2;
+        --theme-accent: #93613d;
+      }
+
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --theme-background: #15130f;
+        --theme-surface: #211e19;
+        --theme-elevated: #2b2721;
+        --theme-ink: #f4efe9;
+        --theme-muted: #c4bcb1;
+        --theme-border: rgba(223, 197, 131, 0.24);
+        --theme-accent: #d99a70;
+      }
+
+      :root[data-theme] body {
+        background: var(--theme-background) !important;
+        color: var(--theme-ink) !important;
+      }
+
+      :root[data-theme] body main {
+        background: var(--theme-background) !important;
+        color: var(--theme-ink) !important;
+      }
+
+      :root[data-theme] body[data-page="marketplace"],
+      :root[data-theme] body[data-page="featured"],
+      :root[data-theme] body[data-page="upload"] {
+        --page-bg: var(--theme-background);
+        --page-surface: var(--theme-surface);
+        --page-ink: var(--theme-ink);
+        --page-muted: var(--theme-muted);
+        --page-border: var(--theme-border);
+        --page-accent: var(--theme-accent);
+        --page-accent-soft: var(--theme-elevated);
+        color-scheme: inherit;
+      }
+
+      :root[data-theme] .theme-toggle,
+      :root[data-theme] .auth-panel,
+      :root[data-theme] .auth-tabs,
+      :root[data-theme] .auth-card,
+      :root[data-theme] .payment-dialog,
+      :root[data-theme] .purchase-summary,
+      :root[data-theme] .payment-method {
+        border-color: var(--theme-border) !important;
+        background-color: var(--theme-surface) !important;
+        color: var(--theme-ink) !important;
+      }
+
+      :root[data-theme] body[data-page="marketplace"] .topbar,
+      :root[data-theme] body[data-page="featured"] .topbar,
+      :root[data-theme] body[data-page="upload"] .topbar {
+        border-color: var(--theme-border) !important;
+        background: var(--theme-surface) !important;
+      }
+
+      :root[data-theme] body[data-page="marketplace"] .filter-field input,
+      :root[data-theme] body[data-page="marketplace"] .filter-field select,
+      :root[data-theme] body[data-page="featured"] .filter-field input,
+      :root[data-theme] body[data-page="featured"] .filter-field select,
+      :root[data-theme] body[data-page="upload"] .dimension-field input,
+      :root[data-theme] body[data-page="upload"] .dimension-field textarea,
+      :root[data-theme] .form-group input,
+      :root[data-theme] .form-group select {
+        border-color: var(--theme-border) !important;
+        background: var(--theme-surface) !important;
+        color: var(--theme-ink) !important;
+      }
+
+      :root[data-theme] body[data-page="marketplace"] .filter-clear,
+      :root[data-theme] body[data-page="featured"] .filter-clear,
+      :root[data-theme] body[data-page="marketplace"] .create-account-btn,
+      :root[data-theme] body[data-page="marketplace"] .listing-photo-picker,
+      :root[data-theme] body[data-page="upload"] .listing-photo-picker,
+      :root[data-theme] body[data-page="upload"] .upload-file-item,
+      :root[data-theme] body[data-page="upload"] .upload-meta-item {
+        border-color: var(--theme-border) !important;
+        background: var(--theme-elevated) !important;
+        color: var(--theme-ink) !important;
+      }
+
+      :root[data-theme] body[data-page="marketplace"] .nav-links a.active,
+      :root[data-theme] body[data-page="featured"] .nav-links a.active,
+      :root[data-theme] body[data-page="upload"] .nav-links a.active,
+      :root[data-theme] .auth-tab {
+        background: var(--theme-elevated) !important;
+        color: var(--theme-muted) !important;
+      }
+
+      :root[data-theme] .auth-tab.active {
+        background: var(--theme-surface) !important;
+        color: var(--theme-ink) !important;
+      }
+
+      :root[data-theme] body[data-page="marketplace"] .proof-item strong,
+      :root[data-theme] body[data-page="upload"] .upload-icon {
+        color: var(--theme-accent) !important;
+      }
+
+      :root[data-theme] body[data-page="marketplace"] .create-account-arrow,
+      :root[data-theme] body[data-page="upload"] .upload-icon {
+        border-color: var(--theme-border) !important;
+        background: var(--theme-elevated) !important;
+      }
+
+      :root[data-theme] body[data-page="upload"] .verification-notice {
+        border-color: var(--theme-border) !important;
+        background: var(--theme-elevated) !important;
+        color: var(--theme-ink) !important;
+      }
+
+      :root[data-theme] .auth-card h3,
+      :root[data-theme] .auth-left h3,
+      :root[data-theme] .form-group label,
+      :root[data-theme] body[data-page="contact"] .contact-intro h1 {
+        color: var(--theme-ink) !important;
+      }
+
+      :root[data-theme] .small-text,
+      :root[data-theme] .payment-notice,
+      :root[data-theme] body[data-page="contact"] .contact-intro p,
+      :root[data-theme] body[data-page="contact"] .contact-card-label,
+      :root[data-theme] body[data-page="contact"] .contact-card-action {
+        color: var(--theme-muted) !important;
+      }
+
+      :root[data-theme] body[data-page="marketplace"] .plan-format,
+      :root[data-theme] body[data-page="featured"] .plan-format {
+        background: var(--theme-elevated) !important;
+        color: var(--theme-ink) !important;
+      }
+
+      :root[data-theme] body[data-page="upload"] .upload-card {
+        border-color: var(--theme-border) !important;
+        background: var(--theme-elevated) !important;
+      }
+
+      :root[data-theme] body[data-page="contact"] .contact-page {
+        background: var(--theme-background);
+        color: var(--theme-ink);
+      }
+
+      :root[data-theme] body[data-page="contact"] .topbar {
+        border-color: var(--theme-border);
+        background: var(--theme-surface);
+      }
+
+      :root[data-theme] body[data-page="contact"] .brand,
+      :root[data-theme] body[data-page="contact"] .nav-links,
+      :root[data-theme] body[data-page="contact"] .nav-links a.active {
+        color: var(--theme-ink);
+      }
+
+      :root[data-theme] body[data-page="contact"] .contact-card {
+        border-color: var(--theme-border);
+        background: var(--theme-surface);
+        color: var(--theme-ink);
+      }
+
+      :root[data-theme] body[data-page="contact"] .contact-card-value {
+        color: var(--theme-ink);
+      }
+
+      :root[data-theme] body[data-page="contact"] .contact-fact {
+        background: var(--theme-elevated);
+      }
+
+      @media (max-width: 700px) {
+        .theme-toggle {
+          width: 44px;
+          padding: 0;
+          flex: 0 0 44px;
+        }
+
+        .theme-toggle-label {
+          display: none;
+        }
+      }
+
 
