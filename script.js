@@ -272,30 +272,30 @@ const tabs = document.querySelectorAll('.auth-tab');
       }
 
       const planSearchInput = document.getElementById('plan-search');
-      const planBedroomsSelect = document.getElementById('plan-bedrooms');
+      const planBedroomsInput = document.getElementById('plan-bedrooms');
       const planPriceSelect = document.getElementById('plan-price');
       const planFloorsSelect = document.getElementById('plan-floors');
       const planStyleSelect = document.getElementById('plan-style');
       const clearPlanFiltersButton = document.getElementById('clear-filters');
-      const planCards = document.querySelectorAll('.plan-card');
 
       function applyPlanFilters() {
         const searchValue = planSearchInput.value.trim().toLowerCase();
-        const selectedBedrooms = planBedroomsSelect.value;
+        const bedroomQuery = planBedroomsInput.value.trim();
         const selectedPrice = planPriceSelect.value;
         const selectedFloors = planFloorsSelect.value;
         const selectedStyle = planStyleSelect.value;
 
-        planCards.forEach((card) => {
+        plansGrid.querySelectorAll('.plan-card').forEach((card) => {
           const title = (card.dataset.planTitle || '').toLowerCase();
           const planId = (card.dataset.planId || '').toLowerCase();
           const style = (card.dataset.style || '').toLowerCase();
+          const searchableText = `${title} ${planId} ${style} ${card.textContent}`.toLowerCase();
           const bedrooms = Number(card.dataset.bedrooms || 0);
           const price = Number(card.dataset.price || 0);
           const floors = Number(card.dataset.floors || 0);
 
-          const matchesSearch = !searchValue || title.includes(searchValue) || planId.includes(searchValue) || style.includes(searchValue);
-          const matchesBedrooms = !selectedBedrooms || bedrooms === Number(selectedBedrooms);
+          const matchesSearch = !searchValue || searchableText.includes(searchValue);
+          const matchesBedrooms = !bedroomQuery || (/^\d+$/.test(bedroomQuery) && bedrooms === Number(bedroomQuery));
           const matchesPrice = !selectedPrice || (
             selectedPrice === 'under-2000' ? price < 2000 :
             selectedPrice === '2000-2500' ? price >= 2000 && price <= 2500 :
@@ -309,14 +309,14 @@ const tabs = document.querySelectorAll('.auth-tab');
         });
       }
 
-      [planSearchInput, planBedroomsSelect, planPriceSelect, planFloorsSelect, planStyleSelect].forEach((filterControl) => {
+      [planSearchInput, planBedroomsInput, planPriceSelect, planFloorsSelect, planStyleSelect].forEach((filterControl) => {
         filterControl.addEventListener('input', applyPlanFilters);
         filterControl.addEventListener('change', applyPlanFilters);
       });
 
       clearPlanFiltersButton.addEventListener('click', () => {
         planSearchInput.value = '';
-        planBedroomsSelect.value = '';
+        planBedroomsInput.value = '';
         planPriceSelect.value = '';
         planFloorsSelect.value = '';
         planStyleSelect.value = '';
@@ -413,6 +413,11 @@ const tabs = document.querySelectorAll('.auth-tab');
       function addUploadedPlanPreview(listing) {
         const card = document.createElement('article');
         card.className = 'plan-card uploaded-plan-preview';
+        card.dataset.planTitle = listing.title;
+        card.dataset.planId = listing.id;
+        card.dataset.bedrooms = listing.bedrooms;
+        card.dataset.price = listing.price;
+        card.dataset.floors = listing.floors;
 
         const photo = document.createElement('div');
         photo.className = 'plan-photo uploaded-plan-photo';
@@ -492,6 +497,7 @@ const tabs = document.querySelectorAll('.auth-tab');
             // The card is still removed for this page view if storage is unavailable.
           }
           card.remove();
+          applyPlanFilters();
         });
         ownerActions.appendChild(deleteButton);
 
@@ -519,6 +525,7 @@ const tabs = document.querySelectorAll('.auth-tab');
         body.append(title, verificationStatus, description, priceRow, specs, ownerActions);
         card.append(photo, body);
         plansGrid.appendChild(card);
+        applyPlanFilters();
         return card;
       }
 
