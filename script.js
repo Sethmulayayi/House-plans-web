@@ -272,31 +272,15 @@ const tabs = document.querySelectorAll('.auth-tab');
       }
 
       const planSearchInput = document.getElementById('plan-search');
-      const planBedroomsSelect = document.getElementById('plan-bedrooms');
+      const planBedroomsInput = document.getElementById('plan-bedrooms');
       const planPriceSelect = document.getElementById('plan-price');
       const planFloorsSelect = document.getElementById('plan-floors');
       const planStyleSelect = document.getElementById('plan-style');
       const clearPlanFiltersButton = document.getElementById('clear-filters');
 
-      function refreshBedroomsFilterOptions() {
-        const selectedBedrooms = planBedroomsSelect.value;
-        const bedroomCounts = [...new Set(
-          Array.from(plansGrid.querySelectorAll('.plan-card'), (card) => Number(card.dataset.bedrooms))
-            .filter((count) => Number.isInteger(count) && count >= 0),
-        )].sort((first, second) => first - second);
-
-        planBedroomsSelect.replaceChildren(new Option('Any bedroom count', ''));
-        bedroomCounts.forEach((count) => {
-          planBedroomsSelect.add(new Option(`${count} bedrooms`, String(count)));
-        });
-        planBedroomsSelect.value = selectedBedrooms;
-      }
-
-      refreshBedroomsFilterOptions();
-
       function applyPlanFilters() {
         const searchValue = planSearchInput.value.trim().toLowerCase();
-        const selectedBedrooms = planBedroomsSelect.value;
+        const bedroomQuery = planBedroomsInput.value.trim();
         const selectedPrice = planPriceSelect.value;
         const selectedFloors = planFloorsSelect.value;
         const selectedStyle = planStyleSelect.value;
@@ -311,7 +295,7 @@ const tabs = document.querySelectorAll('.auth-tab');
           const floors = Number(card.dataset.floors || 0);
 
           const matchesSearch = !searchValue || searchableText.includes(searchValue);
-          const matchesBedrooms = !selectedBedrooms || bedrooms === Number(selectedBedrooms);
+          const matchesBedrooms = !bedroomQuery || (/^\d+$/.test(bedroomQuery) && bedrooms === Number(bedroomQuery));
           const matchesPrice = !selectedPrice || (
             selectedPrice === 'under-2000' ? price < 2000 :
             selectedPrice === '2000-2500' ? price >= 2000 && price <= 2500 :
@@ -325,14 +309,14 @@ const tabs = document.querySelectorAll('.auth-tab');
         });
       }
 
-      [planSearchInput, planBedroomsSelect, planPriceSelect, planFloorsSelect, planStyleSelect].forEach((filterControl) => {
+      [planSearchInput, planBedroomsInput, planPriceSelect, planFloorsSelect, planStyleSelect].forEach((filterControl) => {
         filterControl.addEventListener('input', applyPlanFilters);
         filterControl.addEventListener('change', applyPlanFilters);
       });
 
       clearPlanFiltersButton.addEventListener('click', () => {
         planSearchInput.value = '';
-        planBedroomsSelect.value = '';
+        planBedroomsInput.value = '';
         planPriceSelect.value = '';
         planFloorsSelect.value = '';
         planStyleSelect.value = '';
@@ -513,7 +497,6 @@ const tabs = document.querySelectorAll('.auth-tab');
             // The card is still removed for this page view if storage is unavailable.
           }
           card.remove();
-          refreshBedroomsFilterOptions();
           applyPlanFilters();
         });
         ownerActions.appendChild(deleteButton);
@@ -542,7 +525,6 @@ const tabs = document.querySelectorAll('.auth-tab');
         body.append(title, verificationStatus, description, priceRow, specs, ownerActions);
         card.append(photo, body);
         plansGrid.appendChild(card);
-        refreshBedroomsFilterOptions();
         applyPlanFilters();
         return card;
       }
