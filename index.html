@@ -237,18 +237,75 @@
                 <span>Style</span>
                 <select id="plan-style">
                   <option value="">Any style</option>
-                  <option value="modern">Modern</option>
-                  <option value="contemporary">Contemporary</option>
-                  <option value="family">Family</option>
+                  <option value="modern">Modern House Plans</option>
+                  <option value="contemporary">Contemporary House Plans</option>
+                  <option value="bungalow">Bungalow House Plans</option>
+                  <option value="luxury">Luxury House Plans</option>
+                  <option value="rustic">Rustic House Plans</option>
+                  <option value="country">Country House Plans</option>
+                  <option value="family">Family House Plans</option>
                 </select>
               </label>
 
               <button class="filter-clear" id="clear-filters" type="button">Clear</button>
             </div>
+            <fieldset class="product-type-filter">
+              <legend>Product type</legend>
+              <div class="product-type-options">
+                <label class="product-type-option">
+                  <input class="product-type-checkbox" type="checkbox" value="apartments" />
+                  <span>Apartments</span>
+                  <span class="product-type-count" data-product-type-count="apartments">0</span>
+                </label>
+                <label class="product-type-option">
+                  <input class="product-type-checkbox" type="checkbox" value="commercial" />
+                  <span>Commercial</span>
+                  <span class="product-type-count" data-product-type-count="commercial">0</span>
+                </label>
+                <label class="product-type-option">
+                  <input class="product-type-checkbox" type="checkbox" value="educational-facility" />
+                  <span>Educational Facility</span>
+                  <span class="product-type-count" data-product-type-count="educational-facility">0</span>
+                </label>
+                <label class="product-type-option">
+                  <input class="product-type-checkbox" type="checkbox" value="healthcare-facility" />
+                  <span>Healthcare Facility</span>
+                  <span class="product-type-count" data-product-type-count="healthcare-facility">0</span>
+                </label>
+                <label class="product-type-option">
+                  <input class="product-type-checkbox" type="checkbox" value="hotels-lodges" />
+                  <span>Hotels &amp; Lodges</span>
+                  <span class="product-type-count" data-product-type-count="hotels-lodges">0</span>
+                </label>
+                <label class="product-type-option">
+                  <input class="product-type-checkbox" type="checkbox" value="residential" />
+                  <span>Residential</span>
+                  <span class="product-type-count" data-product-type-count="residential">0</span>
+                </label>
+                <label class="product-type-option">
+                  <input class="product-type-checkbox" type="checkbox" value="water-tank-tower" />
+                  <span>Water Tank Tower</span>
+                  <span class="product-type-count" data-product-type-count="water-tank-tower">0</span>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="plan-utilities">
+            <button class="saved-plans-toggle" id="saved-plans-toggle" type="button" aria-pressed="false">
+              <span class="saved-plans-label">Saved plans</span>
+              <span class="saved-plans-count" id="saved-plans-count">0</span>
+            </button>
+            <div class="compare-tray" id="compare-tray" hidden>
+              <span id="compare-selection-count">0 plans selected</span>
+              <button class="compare-open-button" id="compare-open" type="button" disabled>Compare plans</button>
+              <button class="compare-clear-button" id="compare-clear" type="button">Clear selection</button>
+            </div>
+            <span class="visually-hidden" id="plan-action-status" role="status" aria-live="polite"></span>
           </div>
 
           <div class="plans-grid">
-            <article class="plan-card" data-plan-title="Willow Creek 4-Bedroom House Plan EDP-001" data-plan-id="EDP-001" data-bedrooms="4" data-price="2390" data-floors="1" data-style="modern">
+            <article class="plan-card" data-plan-title="Willow Creek 4-Bedroom House Plan EDP-001" data-plan-id="EDP-001" data-product-type="residential" data-bedrooms="4" data-price="2390" data-floors="1" data-style="modern">
               <div class="plan-photo">
                 <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80" alt="Modern farmhouse exterior" loading="lazy" decoding="async" />
                 <span class="plan-badge">Best seller</span>
@@ -257,6 +314,11 @@
               <div class="plan-body">
                 <h3 class="plan-title">Willow Creek 4-Bedroom House Plan · ID EDP-001</h3>
                 <span class="verification-status">Verification pending</span>
+                <span class="product-type-badge">Residential</span>
+                <div class="plan-action-buttons">
+                  <button class="plan-action-button" type="button" data-plan-action="favorite" aria-pressed="false">Save plan</button>
+                  <button class="plan-action-button" type="button" data-plan-action="compare" aria-pressed="false">Add to compare</button>
+                </div>
                 <div class="plan-price-row">
                   <span class="plan-price">From K 2,390</span>
                   <div class="plan-rating" data-rating-id="EDP-001" role="group" aria-label="Rate Willow Creek"></div>
@@ -273,7 +335,7 @@
               </div>
             </article>
 
-            <article class="plan-card" data-plan-title="Harbor View 3-Bedroom House Plan EDP-002" data-plan-id="EDP-002" data-bedrooms="3" data-price="1980" data-floors="1" data-style="contemporary">
+            <article class="plan-card" data-plan-title="Harbor View 3-Bedroom House Plan EDP-002" data-plan-id="EDP-002" data-product-type="residential" data-bedrooms="3" data-price="1980" data-floors="1" data-style="contemporary">
               <div class="plan-photo">
                 <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=900&q=80" alt="Contemporary residential home" loading="lazy" decoding="async" />
                 <span class="plan-badge">Popular plan</span>
@@ -282,6 +344,11 @@
               <div class="plan-body">
                 <h3 class="plan-title">Harbor View 3-Bedroom House Plan · ID EDP-002</h3>
                 <span class="verification-status">Verification pending</span>
+                <span class="product-type-badge">Residential</span>
+                <div class="plan-action-buttons">
+                  <button class="plan-action-button" type="button" data-plan-action="favorite" aria-pressed="false">Save plan</button>
+                  <button class="plan-action-button" type="button" data-plan-action="compare" aria-pressed="false">Add to compare</button>
+                </div>
                 <div class="plan-price-row">
                   <span class="plan-price">From K 1,980</span>
                   <div class="plan-rating" data-rating-id="EDP-002" role="group" aria-label="Rate Harbor View"></div>
@@ -298,7 +365,7 @@
               </div>
             </article>
 
-            <article class="plan-card" data-plan-title="Maple Grove 5-Bedroom House Plan EDP-003" data-plan-id="EDP-003" data-bedrooms="5" data-price="3240" data-floors="2" data-style="family">
+            <article class="plan-card" data-plan-title="Maple Grove 5-Bedroom House Plan EDP-003" data-plan-id="EDP-003" data-product-type="residential" data-bedrooms="5" data-price="3240" data-floors="2" data-style="family">
               <div class="plan-photo">
                 <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=900&q=80" alt="Family home with wide front porch" loading="lazy" decoding="async" />
                 <span class="plan-badge">Family favourite</span>
@@ -307,6 +374,11 @@
               <div class="plan-body">
                 <h3 class="plan-title">Maple Grove 5-Bedroom House Plan · ID EDP-003</h3>
                 <span class="verification-status">Verification pending</span>
+                <span class="product-type-badge">Residential</span>
+                <div class="plan-action-buttons">
+                  <button class="plan-action-button" type="button" data-plan-action="favorite" aria-pressed="false">Save plan</button>
+                  <button class="plan-action-button" type="button" data-plan-action="compare" aria-pressed="false">Add to compare</button>
+                </div>
                 <div class="plan-price-row">
                   <span class="plan-price">From K 3,240</span>
                   <div class="plan-rating" data-rating-id="EDP-003" role="group" aria-label="Rate Maple Grove"></div>
@@ -325,6 +397,14 @@
           </div>
         </div>
       </section>
+
+      <dialog class="plan-comparison-dialog" id="plan-comparison-dialog" aria-labelledby="plan-comparison-title">
+        <div class="comparison-dialog-header">
+          <h2 id="plan-comparison-title">Compare house plans</h2>
+          <button class="comparison-dialog-close" id="close-plan-comparison" type="button" aria-label="Close plan comparison">&times;</button>
+        </div>
+        <div class="comparison-table-wrap" id="plan-comparison-content"></div>
+      </dialog>
 
       <section class="process" id="process" data-page-view="featured" aria-labelledby="process-title">
         <div class="container">
@@ -370,6 +450,32 @@
               <div class="dimension-field listing-field-wide">
                 <label for="listing-title">Plan title</label>
                 <input id="listing-title" type="text" placeholder="e.g. Modern 4-bedroom family house" required />
+              </div>
+              <div class="dimension-field">
+                <label for="listing-product-type">Product type</label>
+                <select id="listing-product-type" required>
+                  <option value="">Choose a product type</option>
+                  <option value="apartments">Apartments</option>
+                  <option value="commercial">Commercial</option>
+                  <option value="educational-facility">Educational Facility</option>
+                  <option value="healthcare-facility">Healthcare Facility</option>
+                  <option value="hotels-lodges">Hotels &amp; Lodges</option>
+                  <option value="residential">Residential</option>
+                  <option value="water-tank-tower">Water Tank Tower</option>
+                </select>
+              </div>
+              <div class="dimension-field">
+                <label for="listing-style">Style</label>
+                <select id="listing-style" required>
+                  <option value="">Choose a house style</option>
+                  <option value="modern">Modern House Plans</option>
+                  <option value="contemporary">Contemporary House Plans</option>
+                  <option value="bungalow">Bungalow House Plans</option>
+                  <option value="luxury">Luxury House Plans</option>
+                  <option value="rustic">Rustic House Plans</option>
+                  <option value="country">Country House Plans</option>
+                  <option value="family">Family House Plans</option>
+                </select>
               </div>
               <div class="dimension-field">
                 <label for="listing-price">Price (ZMW)</label>
