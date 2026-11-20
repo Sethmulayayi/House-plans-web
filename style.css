@@ -4459,4 +4459,262 @@
         }
       }
 
+      body[data-page="marketplace"],
+      body[data-page="featured"],
+      body[data-page="upload"] {
+        --page-bg: #fbfcfa;
+        --page-surface: #ffffff;
+        --page-ink: #20372f;
+        --page-muted: #596a62;
+        --page-border: #e1e8e2;
+        --page-accent: #93613d;
+        --page-accent-soft: #f3eee5;
+        color-scheme: light;
+        background: var(--page-bg) !important;
+        color: var(--page-ink) !important;
+      }
+
+      body[data-page="marketplace"]::before,
+      body[data-page="featured"]::before,
+      body[data-page="upload"]::before {
+        display: none;
+      }
+
+      body[data-page="marketplace"] main,
+      body[data-page="featured"] main,
+      body[data-page="upload"] main {
+        background: var(--page-bg) !important;
+        color: var(--page-ink) !important;
+      }
+
+      body[data-page="marketplace"] .topbar,
+      body[data-page="featured"] .topbar,
+      body[data-page="upload"] .topbar {
+        border-bottom-color: var(--page-border) !important;
+        background: rgba(255, 255, 255, 0.96) !important;
+      }
+
+      body[data-page="marketplace"] .brand,
+      body[data-page="featured"] .brand,
+      body[data-page="upload"] .brand,
+      body[data-page="marketplace"] .nav-links,
+      body[data-page="featured"] .nav-links,
+      body[data-page="upload"] .nav-links {
+        color: var(--page-ink) !important;
+      }
+
+      body[data-page="marketplace"] .brand-mark,
+      body[data-page="featured"] .brand-mark,
+      body[data-page="upload"] .brand-mark,
+      body[data-page="marketplace"] .menu-toggle,
+      body[data-page="featured"] .menu-toggle,
+      body[data-page="upload"] .menu-toggle {
+        border-color: var(--page-border) !important;
+        background: var(--page-surface) !important;
+        color: var(--page-accent) !important;
+      }
+
+      body[data-page="marketplace"] .nav-links a.active,
+      body[data-page="featured"] .nav-links a.active,
+      body[data-page="upload"] .nav-links a.active,
+      body[data-page="marketplace"] .nav-links a.active:hover,
+      body[data-page="featured"] .nav-links a.active:hover,
+      body[data-page="upload"] .nav-links a.active:hover {
+        background: #edf2ed !important;
+        color: var(--page-ink) !important;
+      }
+
+      body[data-page="marketplace"] .nav-links a.active::after,
+      body[data-page="featured"] .nav-links a.active::after,
+      body[data-page="upload"] .nav-links a.active::after {
+        background: var(--page-accent) !important;
+      }
+
+      body[data-page="marketplace"] .hero,
+      body[data-page="featured"] #features,
+      body[data-page="featured"] #plans,
+      body[data-page="featured"] .process,
+      body[data-page="marketplace"] #plans,
+      body[data-page="upload"] #upload {
+        background: var(--page-bg) !important;
+        color: var(--page-ink) !important;
+      }
+
+      body[data-page="marketplace"] .hero h1,
+      body[data-page="featured"] .section-head h2,
+      body[data-page="featured"] .featured-header h2,
+      body[data-page="featured"] .process-step h3,
+      body[data-page="upload"] .upload-box h3,
+      body[data-page="marketplace"] .featured-header h2,
+      body[data-page="marketplace"] .plan-title {
+        color: var(--page-ink) !important;
+        -webkit-text-stroke: 0;
+      }
+
+      body[data-page="marketplace"] .hero-highlight {
+        color: var(--page-accent) !important;
+      }
+
+      body[data-page="marketplace"] .lead,
+      body[data-page="marketplace"] .hero-message p,
+      body[data-page="featured"] .section-head p,
+      body[data-page="featured"] .featured-header p,
+      body[data-page="featured"] .wallet-card p,
+      body[data-page="featured"] .feature-box p,
+      body[data-page="featured"] .process-step p,
+      body[data-page="upload"] .upload-box p,
+      body[data-page="marketplace"] .featured-header p,
+      body[data-page="marketplace"] .plan-description {
+        color: var(--page-muted) !important;
+      }
+
+      body[data-page="marketplace"] .wallet-card,
+      body[data-page="featured"] .wallet-card,
+      body[data-page="featured"] .feature-box,
+      body[data-page="featured"] .process-step,
+      body[data-page="marketplace"] .plan-card,
+      body[data-page="featured"] .plan-card,
+      body[data-page="upload"] .upload-box {
+        border: 1px solid var(--page-border) !important;
+        background: var(--page-surface) !important;
+        color: var(--page-ink) !important;
+        box-shadow: 0 12px 30px rgba(27, 47, 38, 0.07) !important;
+      }
+
+      body[data-page="marketplace"] .wallet-card h3,
+      body[data-page="featured"] .wallet-card h3,
+      body[data-page="featured"] .feature-box h3,
+      body[data-page="featured"] .process-step h3,
+      body[data-page="marketplace"] .plan-title,
+      body[data-page="featured"] .plan-title,
+      body[data-page="upload"] .upload-inner h4 {
+        color: var(--page-ink) !important;
+      }
+
+      body[data-page="marketplace"] .plans-filters,
+      body[data-page="featured"] .plans-filters {
+        border-color: var(--page-border) !important;
+        background: var(--page-surface) !important;
+      }
+
+      body[data-page="marketplace"] .filter-field,
+      body[data-page="featured"] .filter-field {
+        border-color: var(--page-border) !important;
+      }
+
+      body[data-page="marketplace"] .filter-field span,
+      body[data-page="featured"] .filter-field span {
+        color: var(--page-ink) !important;
+      }
+
+      body[data-page="marketplace"] .filter-field input,
+      body[data-page="marketplace"] .filter-field select,
+      body[data-page="featured"] .filter-field input,
+      body[data-page="featured"] .filter-field select,
+      body[data-page="upload"] .dimension-field input,
+      body[data-page="upload"] .dimension-field textarea {
+        border-color: var(--page-border) !important;
+        background-color: #fff !important;
+        color: var(--page-ink) !important;
+      }
+
+      body[data-page="upload"] .dimension-field label {
+        color: var(--page-ink) !important;
+      }
+
+      body[data-page="marketplace"] .filter-field input::placeholder,
+      body[data-page="featured"] .filter-field input::placeholder,
+      body[data-page="upload"] .dimension-field input::placeholder,
+      body[data-page="upload"] .dimension-field textarea::placeholder {
+        color: #748078;
+      }
+
+      body[data-page="marketplace"] .filter-clear,
+      body[data-page="featured"] .filter-clear {
+        border-color: var(--page-border) !important;
+        background: #f4f6f3 !important;
+        color: var(--page-ink) !important;
+      }
+
+      body[data-page="marketplace"] .plan-price,
+      body[data-page="featured"] .plan-price {
+        color: var(--page-accent) !important;
+      }
+
+      body[data-page="marketplace"] .plan-spec strong,
+      body[data-page="featured"] .plan-spec strong {
+        color: var(--page-ink) !important;
+      }
+
+      body[data-page="marketplace"] .plan-spec span,
+      body[data-page="featured"] .plan-spec span,
+      body[data-page="marketplace"] .rating-feedback,
+      body[data-page="featured"] .rating-feedback {
+        color: var(--page-muted) !important;
+      }
+
+      body[data-page="marketplace"] .plan-specs,
+      body[data-page="featured"] .plan-specs,
+      body[data-page="marketplace"] .plan-spec,
+      body[data-page="featured"] .plan-spec {
+        border-color: var(--page-border) !important;
+      }
+
+      body[data-page="marketplace"] .plan-format,
+      body[data-page="featured"] .plan-format {
+        background: #edf3ee !important;
+        color: #245640 !important;
+      }
+
+      body[data-page="marketplace"] .quick-buy,
+      body[data-page="featured"] .quick-buy,
+      body[data-page="marketplace"] .browse-plans-link,
+      body[data-page="marketplace"] .nav-account-btn,
+      body[data-page="featured"] .nav-account-btn,
+      body[data-page="upload"] .nav-account-btn {
+        border-color: #b69051 !important;
+        background: linear-gradient(135deg, #d6bd80, #c3a15c) !important;
+        color: #21372f !important;
+      }
+
+      body[data-page="marketplace"] .create-account-btn {
+        border-color: var(--page-border) !important;
+        background: #fff !important;
+        color: var(--page-ink) !important;
+      }
+
+      body[data-page="marketplace"] .create-account-arrow {
+        background: #edf2ed !important;
+        color: var(--page-ink) !important;
+      }
+
+      body[data-page="upload"] .verification-notice {
+        border-color: #e7d8bd !important;
+        background: #f8f3e9 !important;
+        color: #554632 !important;
+      }
+
+      body[data-page="upload"] .listing-photo-picker,
+      body[data-page="upload"] .upload-file-item,
+      body[data-page="upload"] .upload-meta-item {
+        border-color: var(--page-border) !important;
+        background: #fff !important;
+        color: var(--page-ink) !important;
+      }
+
+      body[data-page="upload"] .upload-card {
+        border-color: #c8d8ca !important;
+        background: #f4f7f3 !important;
+      }
+
+      body[data-page="upload"] .upload-icon {
+        background: #e9f0e9 !important;
+        color: #315d46 !important;
+      }
+
+      body[data-page="upload"] .file-size,
+      body[data-page="upload"] .upload-progress-label {
+        color: var(--page-muted) !important;
+      }
+
 

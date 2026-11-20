@@ -45,6 +45,7 @@ const tabs = document.querySelectorAll('.auth-tab');
       const availablePages = ['marketplace', 'featured', 'upload', 'contact'];
       const requestedPage = new URLSearchParams(window.location.search).get('page');
       const currentPage = availablePages.includes(requestedPage) ? requestedPage : 'marketplace';
+      document.body.dataset.page = currentPage;
       const plansGrid = document.querySelector('.plans-grid');
       const purchaseDialog = document.getElementById('purchase-dialog');
       const purchasePlanName = document.getElementById('purchase-plan-name');
