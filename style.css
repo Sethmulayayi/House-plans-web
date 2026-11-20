@@ -731,11 +731,12 @@
 
       .filter-grid {
         display: grid;
-        grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr auto;
+        grid-template-columns: minmax(0, 1.5fr) repeat(4, minmax(0, 1fr)) auto;
         align-items: stretch;
       }
 
       .filter-field {
+        min-width: 0;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -754,6 +755,7 @@
       .filter-field input,
       .filter-field select {
         width: 100%;
+        min-width: 0;
         min-height: 54px;
         border: 1px solid rgba(59, 64, 52, 0.18);
         border-radius: 12px;
@@ -775,6 +777,7 @@
         background-position: calc(100% - 22px) calc(50% - 2px), calc(100% - 16px) calc(50% - 2px);
         background-size: 6px 6px;
         background-repeat: no-repeat;
+        text-overflow: ellipsis;
       }
 
       .filter-clear {
@@ -1970,7 +1973,7 @@
         }
 
         .filter-grid {
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         h1 {
@@ -2187,20 +2190,6 @@
       @media (max-width: 420px) {
         .container {
           width: calc(100% - 24px);
-        }
-
-        .filter-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .filter-field {
-          padding: 16px;
-          border-right: 0;
-          border-bottom: 1px solid rgba(58, 52, 45, 0.2);
-        }
-
-        .filter-clear {
-          margin: 12px 16px;
         }
 
         .listing-fields-grid {
@@ -5111,6 +5100,21 @@
       }
 
       @media (max-width: 600px) {
+        .filter-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .filter-field {
+          padding: 16px;
+          border-right: 0;
+          border-bottom: 1px solid var(--theme-border, var(--line));
+        }
+
+        .filter-clear {
+          width: calc(100% - 32px);
+          margin: 12px 16px;
+        }
+
         .plan-utilities,
         .compare-tray {
           align-items: stretch;
@@ -5145,11 +5149,12 @@
 
       .product-type-options {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
         gap: 4px 14px;
       }
 
       .product-type-option {
+        min-width: 0;
         min-height: 42px;
         display: flex;
         align-items: center;
@@ -5195,6 +5200,8 @@
 
       .dimension-field select {
         width: 100%;
+        min-width: 0;
+        max-width: 100%;
         min-height: 46px;
         border: 1px solid var(--theme-border, var(--line));
         border-radius: 12px;
@@ -5202,6 +5209,7 @@
         background: var(--theme-surface, var(--surface));
         color: var(--theme-ink, var(--text));
         font: inherit;
+        box-sizing: border-box;
       }
 
       :root[data-theme] body[data-page="upload"] .dimension-field select {
