@@ -56,6 +56,8 @@ const tabs = document.querySelectorAll('.auth-tab');
       const plotLengthInput = document.getElementById('plot-length');
       const plotWidthInput = document.getElementById('plot-width');
       const listingTitleInput = document.getElementById('listing-title');
+      const listingProductTypeInput = document.getElementById('listing-product-type');
+      const listingStyleInput = document.getElementById('listing-style');
       const listingPriceInput = document.getElementById('listing-price');
       const listingFloorsInput = document.getElementById('listing-floors');
       const listingBedroomsInput = document.getElementById('listing-bedrooms');
@@ -65,7 +67,7 @@ const tabs = document.querySelectorAll('.auth-tab');
       const listingPhotoName = document.getElementById('listing-photo-name');
       const listingPhotoPreviewWrap = document.getElementById('listing-photo-preview-wrap');
       const listingPhotoPreview = document.getElementById('listing-photo-preview');
-      const listingFormFields = [listingTitleInput, listingPriceInput, listingFloorsInput, listingBedroomsInput, listingBathroomsInput, plotLengthInput, plotWidthInput, listingDescriptionInput];
+      const listingFormFields = [listingTitleInput, listingProductTypeInput, listingStyleInput, listingPriceInput, listingFloorsInput, listingBedroomsInput, listingBathroomsInput, plotLengthInput, plotWidthInput, listingDescriptionInput];
       let listingPhotoObjectUrl = null;
       const accountSection = document.getElementById('account');
       const registerForm = document.querySelector('.auth-card.active form');
@@ -322,6 +324,237 @@ const tabs = document.querySelectorAll('.auth-tab');
       const planFloorsSelect = document.getElementById('plan-floors');
       const planStyleSelect = document.getElementById('plan-style');
       const clearPlanFiltersButton = document.getElementById('clear-filters');
+      const productTypeLabels = new Map([
+        ['apartments', 'Apartments'],
+        ['commercial', 'Commercial'],
+        ['educational-facility', 'Educational Facility'],
+        ['healthcare-facility', 'Healthcare Facility'],
+        ['hotels-lodges', 'Hotels & Lodges'],
+        ['residential', 'Residential'],
+        ['water-tank-tower', 'Water Tank Tower'],
+      ]);
+      const styleLabels = new Map([
+        ['modern', 'Modern House Plans'],
+        ['contemporary', 'Contemporary House Plans'],
+        ['bungalow', 'Bungalow House Plans'],
+        ['luxury', 'Luxury House Plans'],
+        ['rustic', 'Rustic House Plans'],
+        ['country', 'Country House Plans'],
+        ['family', 'Family House Plans'],
+      ]);
+      const productTypeCheckboxes = Array.from(document.querySelectorAll('.product-type-checkbox'));
+      const productTypeCountLabels = document.querySelectorAll('[data-product-type-count]');
+      const savedPlansToggle = document.getElementById('saved-plans-toggle');
+      const savedPlansCount = document.getElementById('saved-plans-count');
+      const compareTray = document.getElementById('compare-tray');
+      const compareSelectionCount = document.getElementById('compare-selection-count');
+      const compareOpenButton = document.getElementById('compare-open');
+      const compareClearButton = document.getElementById('compare-clear');
+      const comparisonDialog = document.getElementById('plan-comparison-dialog');
+      const comparisonContent = document.getElementById('plan-comparison-content');
+      const planActionStatus = document.getElementById('plan-action-status');
+      const savedPlanIds = new Set();
+      const comparedPlanIds = new Set();
+      let showingSavedPlans = false;
+
+      try {
+        const storedSavedPlanIds = JSON.parse(localStorage.getItem('edp-favorite-plans') || '[]');
+        if (Array.isArray(storedSavedPlanIds)) {
+          storedSavedPlanIds.forEach((planId) => {
+            if (typeof planId === 'string') {
+              savedPlanIds.add(planId);
+            }
+          });
+        }
+      } catch (error) {
+        console.error('Could not load saved plans.', error);
+        planActionStatus.textContent = 'Saved plans could not be loaded from this browser.';
+      }
+
+      function persistSavedPlanIds() {
+        try {
+          localStorage.setItem('edp-favorite-plans', JSON.stringify([...savedPlanIds]));
+          return true;
+        } catch (error) {
+          console.error('Could not save your saved plans.', error);
+          planActionStatus.textContent = 'Saved plans could not be saved in this browser.';
+          return false;
+        }
+      }
+
+      function refreshPlanActionButtons() {
+        plansGrid.querySelectorAll('.plan-card').forEach((card) => {
+          const planId = card.dataset.planId;
+          const favoriteButton = card.querySelector('[data-plan-action="favorite"]');
+          const compareButton = card.querySelector('[data-plan-action="compare"]');
+          const isSaved = savedPlanIds.has(planId);
+          const isCompared = comparedPlanIds.has(planId);
+
+          favoriteButton.setAttribute('aria-pressed', String(isSaved));
+          favoriteButton.textContent = isSaved ? 'Saved' : 'Save plan';
+          compareButton.setAttribute('aria-pressed', String(isCompared));
+          compareButton.textContent = isCompared ? 'Remove from compare' : 'Add to compare';
+          compareButton.disabled = !isCompared && comparedPlanIds.size >= 3;
+        });
+
+        savedPlansCount.textContent = String(savedPlanIds.size);
+        savedPlansToggle.setAttribute('aria-pressed', String(showingSavedPlans));
+        savedPlansToggle.querySelector('.saved-plans-label').textContent = showingSavedPlans
+          ? 'Show all plans'
+          : 'Saved plans';
+        compareTray.hidden = comparedPlanIds.size === 0;
+        compareSelectionCount.textContent = `${comparedPlanIds.size} ${comparedPlanIds.size === 1 ? 'plan' : 'plans'} selected`;
+        compareOpenButton.disabled = comparedPlanIds.size < 2;
+        compareOpenButton.textContent = `Compare plans (${comparedPlanIds.size}/3)`;
+      }
+
+      function removePlanFromCollections(planId) {
+        const wasSaved = savedPlanIds.delete(planId);
+        comparedPlanIds.delete(planId);
+        if (wasSaved) {
+          persistSavedPlanIds();
+        }
+        refreshPlanActionButtons();
+      }
+
+      function updateProductTypeCounts() {
+        const counts = Object.fromEntries([...productTypeLabels.keys()].map((productType) => [productType, 0]));
+        plansGrid.querySelectorAll('.plan-card').forEach((card) => {
+          const productType = productTypeLabels.has(card.dataset.productType)
+            ? card.dataset.productType
+            : 'residential';
+          counts[productType] += 1;
+        });
+        productTypeCountLabels.forEach((countLabel) => {
+          countLabel.textContent = String(counts[countLabel.dataset.productTypeCount] || 0);
+        });
+      }
+
+      function openPlanComparison() {
+        const selectedCards = Array.from(plansGrid.querySelectorAll('.plan-card'))
+          .filter((card) => comparedPlanIds.has(card.dataset.planId));
+        if (selectedCards.length < 2) {
+          planActionStatus.textContent = 'Select at least two plans to compare.';
+          return;
+        }
+
+        const specifications = new Map(selectedCards.map((card) => [
+          card,
+          new Map(Array.from(card.querySelectorAll('.plan-spec')).map((spec) => [
+            spec.querySelector('span').textContent.trim(),
+            spec.querySelector('strong').textContent.trim(),
+          ])),
+        ]));
+        const specificationLabels = [...new Set(
+          selectedCards.flatMap((card) => [...specifications.get(card).keys()]),
+        )];
+        const rows = [
+          ['Product type', (card) => productTypeLabels.get(card.dataset.productType) || 'Residential'],
+          ['Price', (card) => card.querySelector('.plan-price')?.textContent.trim() || '—'],
+          ['Style', (card) => styleLabels.get(card.dataset.style) || 'Not specified'],
+          ['Plan files', (card) => card.querySelector('.plan-format')?.textContent.trim() || 'Not specified'],
+          ...specificationLabels.map((label) => [
+            label,
+            (card) => specifications.get(card).get(label) || '—',
+          ]),
+        ];
+        const table = document.createElement('table');
+        table.className = 'comparison-table';
+        const caption = table.createCaption();
+        caption.className = 'visually-hidden';
+        caption.textContent = 'House plan comparison';
+
+        const tableHead = table.createTHead();
+        const headingRow = tableHead.insertRow();
+        const detailsHeading = document.createElement('th');
+        detailsHeading.scope = 'col';
+        detailsHeading.textContent = 'Plan details';
+        headingRow.appendChild(detailsHeading);
+        selectedCards.forEach((card) => {
+          const heading = document.createElement('th');
+          heading.scope = 'col';
+          heading.textContent = card.querySelector('.plan-title').textContent.trim();
+          headingRow.appendChild(heading);
+        });
+
+        const tableBody = table.createTBody();
+        rows.forEach(([label, getValue]) => {
+          const row = tableBody.insertRow();
+          const rowHeading = document.createElement('th');
+          rowHeading.scope = 'row';
+          rowHeading.textContent = label;
+          row.appendChild(rowHeading);
+          selectedCards.forEach((card) => {
+            const cell = row.insertCell();
+            cell.textContent = getValue(card);
+          });
+        });
+
+        comparisonContent.replaceChildren(table);
+        comparisonDialog.showModal();
+      }
+
+      plansGrid.addEventListener('click', (event) => {
+        const actionButton = event.target.closest('[data-plan-action]');
+        if (!actionButton) {
+          return;
+        }
+
+        const card = actionButton.closest('.plan-card');
+        const planId = card.dataset.planId;
+        if (actionButton.dataset.planAction === 'favorite') {
+          if (savedPlanIds.has(planId)) {
+            savedPlanIds.delete(planId);
+          } else {
+            savedPlanIds.add(planId);
+          }
+
+          if (!persistSavedPlanIds()) {
+            if (savedPlanIds.has(planId)) {
+              savedPlanIds.delete(planId);
+            } else {
+              savedPlanIds.add(planId);
+            }
+          } else {
+            planActionStatus.textContent = savedPlanIds.has(planId)
+              ? 'Plan added to saved plans.'
+              : 'Plan removed from saved plans.';
+          }
+          refreshPlanActionButtons();
+          applyPlanFilters();
+          return;
+        }
+
+        if (comparedPlanIds.has(planId)) {
+          comparedPlanIds.delete(planId);
+          planActionStatus.textContent = 'Plan removed from comparison.';
+        } else if (comparedPlanIds.size >= 3) {
+          planActionStatus.textContent = 'Compare up to three plans at a time.';
+          return;
+        } else {
+          comparedPlanIds.add(planId);
+          planActionStatus.textContent = 'Plan added to comparison.';
+        }
+        refreshPlanActionButtons();
+      });
+
+      savedPlansToggle.addEventListener('click', () => {
+        showingSavedPlans = !showingSavedPlans;
+        refreshPlanActionButtons();
+        applyPlanFilters();
+        planActionStatus.textContent = showingSavedPlans ? 'Showing saved plans.' : 'Showing all plans.';
+      });
+
+      compareOpenButton.addEventListener('click', openPlanComparison);
+      compareClearButton.addEventListener('click', () => {
+        comparedPlanIds.clear();
+        refreshPlanActionButtons();
+        planActionStatus.textContent = 'Plan comparison selection cleared.';
+      });
+      document.getElementById('close-plan-comparison').addEventListener('click', () => {
+        comparisonDialog.close();
+      });
+      refreshPlanActionButtons();
 
       function applyPlanFilters() {
         const searchValue = planSearchInput.value.trim().toLowerCase();
@@ -329,12 +562,16 @@ const tabs = document.querySelectorAll('.auth-tab');
         const selectedPrice = planPriceSelect.value;
         const selectedFloors = planFloorsSelect.value;
         const selectedStyle = planStyleSelect.value;
+        const selectedProductTypes = productTypeCheckboxes
+          .filter((checkbox) => checkbox.checked)
+          .map((checkbox) => checkbox.value);
 
         plansGrid.querySelectorAll('.plan-card').forEach((card) => {
           const title = (card.dataset.planTitle || '').toLowerCase();
           const planId = (card.dataset.planId || '').toLowerCase();
           const style = (card.dataset.style || '').toLowerCase();
-          const searchableText = `${title} ${planId} ${style} ${card.textContent}`.toLowerCase();
+          const styleLabel = styleLabels.get(style) || '';
+          const searchableText = `${title} ${planId} ${style} ${styleLabel} ${card.textContent}`.toLowerCase();
           const bedrooms = Number(card.dataset.bedrooms || 0);
           const price = Number(card.dataset.price || 0);
           const floors = Number(card.dataset.floors || 0);
@@ -349,8 +586,13 @@ const tabs = document.querySelectorAll('.auth-tab');
           );
           const matchesFloors = !selectedFloors || floors === Number(selectedFloors);
           const matchesStyle = !selectedStyle || style === selectedStyle;
+          const productType = productTypeLabels.has(card.dataset.productType)
+            ? card.dataset.productType
+            : 'residential';
+          const matchesProductType = !selectedProductTypes.length || selectedProductTypes.includes(productType);
+          const matchesSavedPlans = !showingSavedPlans || savedPlanIds.has(card.dataset.planId);
 
-          card.hidden = !(matchesSearch && matchesBedrooms && matchesPrice && matchesFloors && matchesStyle);
+          card.hidden = !(matchesSearch && matchesBedrooms && matchesPrice && matchesFloors && matchesStyle && matchesProductType && matchesSavedPlans);
         });
       }
 
@@ -358,6 +600,10 @@ const tabs = document.querySelectorAll('.auth-tab');
         filterControl.addEventListener('input', applyPlanFilters);
         filterControl.addEventListener('change', applyPlanFilters);
       });
+      productTypeCheckboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', applyPlanFilters);
+      });
+      updateProductTypeCounts();
 
       clearPlanFiltersButton.addEventListener('click', () => {
         planSearchInput.value = '';
@@ -365,6 +611,9 @@ const tabs = document.querySelectorAll('.auth-tab');
         planPriceSelect.value = '';
         planFloorsSelect.value = '';
         planStyleSelect.value = '';
+        productTypeCheckboxes.forEach((checkbox) => {
+          checkbox.checked = false;
+        });
         applyPlanFilters();
       });
 
@@ -458,8 +707,12 @@ const tabs = document.querySelectorAll('.auth-tab');
       function addUploadedPlanPreview(listing) {
         const card = document.createElement('article');
         card.className = 'plan-card uploaded-plan-preview';
+        const productType = productTypeLabels.has(listing.productType) ? listing.productType : 'residential';
+        const style = styleLabels.has(listing.style) ? listing.style : '';
         card.dataset.planTitle = listing.title;
         card.dataset.planId = listing.id;
+        card.dataset.productType = productType;
+        card.dataset.style = style;
         card.dataset.bedrooms = listing.bedrooms;
         card.dataset.price = listing.price;
         card.dataset.floors = listing.floors;
@@ -498,6 +751,25 @@ const tabs = document.querySelectorAll('.auth-tab');
         const verificationStatus = document.createElement('span');
         verificationStatus.className = 'verification-status';
         verificationStatus.textContent = 'Verification pending';
+
+        const productTypeBadge = document.createElement('span');
+        productTypeBadge.className = 'product-type-badge';
+        productTypeBadge.textContent = productTypeLabels.get(productType);
+
+        const planActions = document.createElement('div');
+        planActions.className = 'plan-action-buttons';
+        [
+          ['favorite', 'Save plan'],
+          ['compare', 'Add to compare'],
+        ].forEach(([action, label]) => {
+          const button = document.createElement('button');
+          button.className = 'plan-action-button';
+          button.type = 'button';
+          button.dataset.planAction = action;
+          button.setAttribute('aria-pressed', 'false');
+          button.textContent = label;
+          planActions.appendChild(button);
+        });
 
         const description = document.createElement('p');
         description.className = 'plan-description';
@@ -542,6 +814,8 @@ const tabs = document.querySelectorAll('.auth-tab');
             // The card is still removed for this page view if storage is unavailable.
           }
           card.remove();
+          removePlanFromCollections(listing.id);
+          updateProductTypeCounts();
           applyPlanFilters();
         });
         ownerActions.appendChild(deleteButton);
@@ -567,9 +841,11 @@ const tabs = document.querySelectorAll('.auth-tab');
           specs.appendChild(spec);
         });
 
-        body.append(title, verificationStatus, description, priceRow, specs, ownerActions);
+        body.append(title, verificationStatus, productTypeBadge, planActions, description, priceRow, specs, ownerActions);
         card.append(photo, body);
         plansGrid.appendChild(card);
+        refreshPlanActionButtons();
+        updateProductTypeCounts();
         applyPlanFilters();
         return card;
       }
@@ -654,6 +930,11 @@ const tabs = document.querySelectorAll('.auth-tab');
           submitUploadButton.disabled = false;
         });
       });
+      [listingProductTypeInput, listingStyleInput].forEach((select) => {
+        select.addEventListener('change', () => {
+          submitUploadButton.disabled = false;
+        });
+      });
 
       ['dragenter', 'dragover'].forEach((eventName) => {
         uploadCard.addEventListener(eventName, (event) => {
@@ -692,7 +973,7 @@ const tabs = document.querySelectorAll('.auth-tab');
           return;
         }
 
-        const requiredFields = [listingTitleInput, listingPriceInput, listingFloorsInput, listingBedroomsInput, listingBathroomsInput, plotLengthInput, plotWidthInput, listingDescriptionInput];
+        const requiredFields = [listingTitleInput, listingProductTypeInput, listingStyleInput, listingPriceInput, listingFloorsInput, listingBedroomsInput, listingBathroomsInput, plotLengthInput, plotWidthInput, listingDescriptionInput];
         const invalidField = requiredFields.find((input) => !input.value.trim() || !input.checkValidity());
         if (invalidField) {
           uploadProgressLabel.textContent = 'Complete all plan details before submitting.';
@@ -704,6 +985,8 @@ const tabs = document.querySelectorAll('.auth-tab');
         const listing = {
           id: `upload-${Date.now()}`,
           title: listingTitleInput.value.trim(),
+          productType: listingProductTypeInput.value,
+          style: listingStyleInput.value,
           price: Number(listingPriceInput.value),
           floors: Number(listingFloorsInput.value),
           bedrooms: Number(listingBedroomsInput.value),
