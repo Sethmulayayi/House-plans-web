@@ -9,6 +9,32 @@
       name="description"
       content="Browse, buy, and sell house plans and architectural designs, with convenient mobile money payment options for customers in Zambia and beyond."
     />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_ZM" />
+    <meta property="og:site_name" content="Expertise Design Plans" />
+    <meta property="og:title" content="Expertise Design Plans | Buy and Sell House Plans" />
+    <meta
+      property="og:description"
+      content="Browse, buy, and sell house plans and architectural designs, with convenient mobile money payment options for customers in Zambia and beyond."
+    />
+    <meta
+      property="og:image"
+      content="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?fit=crop&amp;w=1200&amp;h=630&amp;q=80&amp;fm=jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Modern luxury house exterior" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Expertise Design Plans | Buy and Sell House Plans" />
+    <meta
+      name="twitter:description"
+      content="Browse, buy, and sell house plans and architectural designs, with convenient mobile money payment options for customers in Zambia and beyond."
+    />
+    <meta
+      name="twitter:image"
+      content="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?fit=crop&amp;w=1200&amp;h=630&amp;q=80&amp;fm=jpg"
+    />
+    <meta name="twitter:image:alt" content="Modern luxury house exterior" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,6 +44,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="topbar">
       <div class="container nav">
         <a href="?page=marketplace" class="brand" aria-label="Expertise Design Plans home">
@@ -45,11 +72,16 @@
 
         <div class="nav-actions">
           <a class="btn btn-primary nav-account-btn" href="#account">Get Started</a>
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+            <span aria-hidden="true">◐</span>
+            <span class="theme-toggle-label" id="theme-toggle-label">Dark mode</span>
+          </button>
+          <span class="visually-hidden" id="theme-status" role="status" aria-live="polite"></span>
         </div>
       </div>
     </header>
 
-    <main>
+    <main id="main-content">
       <section class="hero" data-page-view="marketplace">
         <div class="container hero-inner">
           <div>
@@ -92,6 +124,7 @@
               <img
                 src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80"
                 alt="Modern luxury house exterior"
+                fetchpriority="high"
               />
             </div>
 
@@ -113,58 +146,58 @@
         </div>
       </section>
 
-      <section class="container" id="features" data-page-view="featured">
+      <section class="container" id="features" data-page-view="featured" aria-labelledby="features-title">
         <div class="section-head">
-          <h2 class="design-section-title"><span class="heading-highlight">Buy and sell house plans and designs with ease</span></h2>
+          <h2 class="design-section-title" id="features-title"><span class="heading-highlight">Buy and sell house plans and designs with ease</span></h2>
           <p>Browse, compare, and sell house plans and design files for homes, businesses, and a range of plot sizes.</p>
         </div>
 
         <div class="wallet-grid">
-          <div class="wallet-card">
+          <article class="wallet-card">
             <div class="wallet-icon">⌂</div>
             <h3>Residential plans</h3>
             <p>From compact homes to luxury villas, explore thoughtful layouts built for comfort, flow, and everyday family living.</p>
-          </div>
-          <div class="wallet-card">
+          </article>
+          <article class="wallet-card">
             <div class="wallet-icon">M</div>
             <h3>Custom designs</h3>
             <p>Find or list original floor plans for homes and businesses, with layouts and dimensions clearly shown.</p>
-          </div>
-          <div class="wallet-card">
+          </article>
+          <article class="wallet-card">
             <div class="wallet-icon">✓</div>
             <h3>Accepted wallets</h3>
             <p>Pay for design packages and plan purchases using Airtel Money, MTN Mobile Money, Zamtel Money, and direct bank transfers.</p>
-          </div>
+          </article>
         </div>
 
         <div class="feature-strip">
-          <div class="feature-box">
+          <article class="feature-box">
             <div class="icon">⌂</div>
             <h3>Flexible layouts</h3>
             <p>Choose open-plan living, private suites, and room arrangements that fit real family routines.</p>
-          </div>
-          <div class="feature-box">
+          </article>
+          <article class="feature-box">
             <div class="icon">✦</div>
             <h3>Custom detailing</h3>
             <p>Personalise materials, finishes, and structural features to match your taste and budget.</p>
-          </div>
-          <div class="feature-box">
+          </article>
+          <article class="feature-box">
             <div class="icon">▣</div>
             <h3>Smart efficiency</h3>
             <p>Thoughtful planning reduces wasted space while maximising comfort, light, and natural flow.</p>
-          </div>
-          <div class="feature-box">
+          </article>
+          <article class="feature-box">
             <div class="icon">✓</div>
             <h3>Plan file formats</h3>
             <p>Find plans supplied in PDF and DWG formats, with file details shown before you enquire.</p>
-          </div>
+          </article>
         </div>
       </section>
 
-      <section id="plans" class="section" data-page-view="marketplace featured">
+      <section id="plans" class="section" data-page-view="marketplace featured" aria-labelledby="plans-title">
         <div class="container">
           <div class="featured-header">
-            <h2>Featured house plans</h2>
+            <h2 id="plans-title">Featured house plans</h2>
             <p>Browse plans approved for advertising, compare specifications and file formats, and view each plan's verification status.</p>
           </div>
 
@@ -217,7 +250,7 @@
           <div class="plans-grid">
             <article class="plan-card" data-plan-title="Willow Creek 4-Bedroom House Plan EDP-001" data-plan-id="EDP-001" data-bedrooms="4" data-price="2390" data-floors="1" data-style="modern">
               <div class="plan-photo">
-                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80" alt="Modern farmhouse exterior" />
+                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80" alt="Modern farmhouse exterior" loading="lazy" decoding="async" />
                 <span class="plan-badge">Best seller</span>
                 <button class="quick-buy" type="button" data-plan="Willow Creek, 4-bedroom house plan" data-price="K 2,390">Quick Buy</button>
               </div>
@@ -242,7 +275,7 @@
 
             <article class="plan-card" data-plan-title="Harbor View 3-Bedroom House Plan EDP-002" data-plan-id="EDP-002" data-bedrooms="3" data-price="1980" data-floors="1" data-style="contemporary">
               <div class="plan-photo">
-                <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=900&q=80" alt="Contemporary residential home" />
+                <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=900&q=80" alt="Contemporary residential home" loading="lazy" decoding="async" />
                 <span class="plan-badge">Popular plan</span>
                 <button class="quick-buy" type="button" data-plan="Harbor View, 3-bedroom house plan" data-price="K 1,980">Quick Buy</button>
               </div>
@@ -267,7 +300,7 @@
 
             <article class="plan-card" data-plan-title="Maple Grove 5-Bedroom House Plan EDP-003" data-plan-id="EDP-003" data-bedrooms="5" data-price="3240" data-floors="2" data-style="family">
               <div class="plan-photo">
-                <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=900&q=80" alt="Family home with wide front porch" />
+                <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=900&q=80" alt="Family home with wide front porch" loading="lazy" decoding="async" />
                 <span class="plan-badge">Family favourite</span>
                 <button class="quick-buy" type="button" data-plan="Maple Grove, 5-bedroom house plan" data-price="K 3,240">Quick Buy</button>
               </div>
@@ -293,43 +326,43 @@
         </div>
       </section>
 
-      <section class="process" id="process" data-page-view="featured">
+      <section class="process" id="process" data-page-view="featured" aria-labelledby="process-title">
         <div class="container">
           <div class="section-head">
-            <h2>How the plan marketplace works</h2>
+            <h2 id="process-title">How the plan marketplace works</h2>
             <p>Find a design, review its details, and contact us to arrange your purchase.</p>
           </div>
 
           <div class="process-grid">
-            <div class="process-step">
+            <article class="process-step">
               <div class="step-number">01</div>
               <h3>Browse</h3>
               <p>Explore house plans by style, bedrooms, plot dimensions, and floor area.</p>
-            </div>
-            <div class="process-step">
+            </article>
+            <article class="process-step">
               <div class="step-number">02</div>
               <h3>Compare</h3>
               <p>Review each plan's layout, measurements, description, and available files.</p>
-            </div>
-            <div class="process-step">
+            </article>
+            <article class="process-step">
               <div class="step-number">03</div>
               <h3>Choose</h3>
               <p>Select a plan and send a purchase enquiry with your preferred payment method.</p>
-            </div>
-            <div class="process-step">
+            </article>
+            <article class="process-step">
               <div class="step-number">04</div>
               <h3>Complete your purchase</h3>
               <p>Confirm payment and arrange delivery of the plan files directly with our team.</p>
-            </div>
+            </article>
           </div>
 
         </div>
       </section>
 
-      <section class="upload-section" id="upload" data-page-view="upload">
+      <section class="upload-section" id="upload" data-page-view="upload" aria-labelledby="upload-title">
         <div class="container">
           <div class="upload-box">
-            <h3>Upload a Plan &amp; Details</h3>
+            <h3 id="upload-title">Upload a Plan &amp; Details</h3>
             <p>Enter the plan details, add a photo of the house, and attach the plan files for your listing preview. Listings are saved in this browser; online publishing is not connected.</p>
             <p class="verification-notice">New listings start as Verification pending. Their licensing and approval documents must be checked against the requirements of the relevant authorities before they can be advertised as verified.</p>
 
@@ -409,11 +442,11 @@
         </div>
       </section>
 
-      <section class="auth-section" id="account">
+      <section class="auth-section" id="account" aria-labelledby="account-title">
         <div class="container auth-shell">
           <div class="auth-left">
             <span class="eyebrow">Member access</span>
-            <h3>Your account for buying and selling plans.</h3>
+            <h3 id="account-title">Your account for buying and selling plans.</h3>
             <p>
               Join Expertise Design Plans to save favourite designs, manage plan listings, and contact sellers.
             </p>
@@ -712,12 +745,12 @@
         </div>
       </section>
 
-      <section id="contact" class="contact-page" data-page-view="contact">
+      <section id="contact" class="contact-page" data-page-view="contact" aria-labelledby="contact-title">
         <div class="container">
           <div class="contact-layout">
             <div class="contact-intro">
               <span class="contact-eyebrow">Expertise Design Plans · Lusaka</span>
-              <h1>Let’s talk about your plans.</h1>
+              <h1 id="contact-title">Let’s talk about your plans.</h1>
               <p>Reach our team about a house plan, a listing, or a purchase. Choose the contact method that works best for you.</p>
             </div>
 
