@@ -2322,7 +2322,7 @@
       }
 
       .nav-links {
-        color: rgba(247, 243, 233, 0.78);
+        color: rgba(255, 255, 255, 0.94);
         font-size: 0.88rem;
       }
 
@@ -2336,7 +2336,7 @@
       .nav-links a.active,
       .nav-links a.active:hover {
         background: rgba(223, 197, 131, 0.11);
-        color: var(--gold-light);
+        color: #fff;
       }
 
       .nav-links a.active::after {
@@ -2344,7 +2344,7 @@
       }
 
       .nav-links a:hover {
-        color: var(--gold-light);
+        color: #fff;
         background: rgba(255, 255, 255, 0.05);
       }
 
