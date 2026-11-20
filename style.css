@@ -2900,6 +2900,7 @@
         color: rgba(247, 243, 233, 0.62);
       }
 
+      @media (prefers-color-scheme: light) {
       :root {
         color-scheme: light;
         --bg: #f6f2eb;
@@ -3732,6 +3733,7 @@
           transform: none !important;
         }
       }
+      }
 
       @media (prefers-color-scheme: dark) {
       body,
@@ -4323,6 +4325,32 @@
 
         .visual-card img {
           min-height: 380px;
+        }
+      }
+
+      .theme-select {
+        width: 94px;
+        min-height: 40px;
+        padding: 0 8px;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        background: var(--surface);
+        color: var(--text);
+        font: inherit;
+        font-size: 0.8rem;
+        cursor: pointer;
+      }
+
+      .theme-select:focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 2px;
+      }
+
+      @media (max-width: 420px) {
+        .theme-select {
+          width: 76px;
+          min-height: 36px;
+          font-size: 0.72rem;
         }
       }
 

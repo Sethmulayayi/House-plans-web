@@ -1,3 +1,44 @@
+const themeSelect = document.getElementById('theme-select');
+const themeMediaRules = Array.from(document.styleSheets).flatMap((stylesheet) => {
+  try {
+    return Array.from(stylesheet.cssRules);
+  } catch {
+    return [];
+  }
+}).filter((rule) => rule instanceof CSSMediaRule && /prefers-color-scheme:\s*(light|dark)/i.test(rule.conditionText))
+  .map((rule) => ({ rule, query: rule.media.mediaText }));
+
+function applyTheme(mode) {
+  document.documentElement.dataset.theme = mode;
+  themeMediaRules.forEach(({ rule, query }) => {
+    const scheme = query.match(/prefers-color-scheme:\s*(light|dark)/i)?.[1].toLowerCase();
+    rule.media.mediaText = mode === 'system' || scheme === mode ? query : 'not all';
+    if (mode !== 'system' && scheme === mode) {
+      rule.media.mediaText = 'all';
+    }
+  });
+}
+
+let savedTheme = 'system';
+try {
+  const storedTheme = localStorage.getItem('edp-theme');
+  if (['system', 'light', 'dark'].includes(storedTheme)) {
+    savedTheme = storedTheme;
+  }
+} catch {
+  savedTheme = 'system';
+}
+
+themeSelect.value = savedTheme;
+applyTheme(savedTheme);
+themeSelect.addEventListener('change', () => {
+  const selectedTheme = themeSelect.value;
+  applyTheme(selectedTheme);
+  try {
+    localStorage.setItem('edp-theme', selectedTheme);
+  } catch {}
+});
+
 const tabs = document.querySelectorAll('.auth-tab');
       const cards = document.querySelectorAll('.auth-card');
       const uploadInput = document.getElementById('file-input');
