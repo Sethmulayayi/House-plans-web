@@ -4555,6 +4555,18 @@
         color: var(--page-accent) !important;
       }
 
+      body[data-page="marketplace"] .proof-item strong {
+        color: #875b35 !important;
+      }
+
+      body[data-page="marketplace"] .proof-item span {
+        color: var(--page-muted) !important;
+      }
+
+      body[data-page="marketplace"] .hero-message strong {
+        color: var(--page-ink) !important;
+      }
+
       body[data-page="marketplace"] .lead,
       body[data-page="marketplace"] .hero-message p,
       body[data-page="featured"] .section-head p,
