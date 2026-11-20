@@ -4328,32 +4328,6 @@
         }
       }
 
-      .theme-select {
-        width: 94px;
-        min-height: 40px;
-        padding: 0 8px;
-        border: 1px solid var(--line);
-        border-radius: 4px;
-        background: var(--surface);
-        color: var(--text);
-        font: inherit;
-        font-size: 0.8rem;
-        cursor: pointer;
-      }
-
-      .theme-select:focus-visible {
-        outline: 2px solid var(--gold);
-        outline-offset: 2px;
-      }
-
-      @media (max-width: 420px) {
-        .theme-select {
-          width: 76px;
-          min-height: 36px;
-          font-size: 0.72rem;
-        }
-      }
-
       @media (max-width: 700px) {
         .nav {
           height: 72px;
@@ -4387,12 +4361,6 @@
           flex-shrink: 0;
         }
 
-        .theme-select {
-          width: 76px;
-          min-height: 36px;
-          font-size: 0.72rem;
-        }
-
         .nav .nav-account-btn {
           padding: 0.6rem 0.8rem;
           font-size: 0.78rem;
@@ -4408,12 +4376,6 @@
         .nav-links,
         .nav-links.is-open {
           order: 4;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .nav .nav-account-btn {
-          display: none;
         }
       }
 
