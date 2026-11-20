@@ -4416,32 +4416,46 @@
           color: #17473b;
         }
 
-        @media (max-width: 700px) {
-          .nav-links,
-          .nav-links.is-open {
-            border-color: rgba(32, 54, 45, 0.16);
-            background: #fff;
-            color: #26352d;
-          }
+      }
 
-          .nav-links a {
-            color: #26352d;
-          }
+      @media (prefers-color-scheme: light) and (max-width: 700px) {
+        .topbar {
+          background: #fff;
+        }
 
-          .nav-links a.active,
-          .nav-links a.active:hover {
-            background: #edf2ed;
-            color: #173e34;
-          }
+        .brand {
+          color: #173e34;
+        }
 
-          .nav-links a.active::after {
-            background: #815033;
-          }
+        .menu-toggle {
+          background: #f4f8f4;
+          color: #17473b;
+        }
 
-          .nav-links a:hover {
-            background: #f1f5f1;
-            color: #173e34;
-          }
+        .nav-links,
+        .nav-links.is-open {
+          border-color: rgba(32, 54, 45, 0.16);
+          background: #fff;
+          color: #26352d;
+        }
+
+        .nav-links a {
+          color: #26352d;
+        }
+
+        .nav-links a.active,
+        .nav-links a.active:hover {
+          background: #edf2ed;
+          color: #173e34;
+        }
+
+        .nav-links a.active::after {
+          background: #815033;
+        }
+
+        .nav-links a:hover {
+          background: #f1f5f1;
+          color: #173e34;
         }
       }
 
