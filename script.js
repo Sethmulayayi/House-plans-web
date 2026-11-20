@@ -277,8 +277,6 @@ const tabs = document.querySelectorAll('.auth-tab');
       const planFloorsSelect = document.getElementById('plan-floors');
       const planStyleSelect = document.getElementById('plan-style');
       const clearPlanFiltersButton = document.getElementById('clear-filters');
-      const planCards = document.querySelectorAll('.plan-card');
-
       function applyPlanFilters() {
         const searchValue = planSearchInput.value.trim().toLowerCase();
         const selectedBedrooms = planBedroomsSelect.value;
@@ -286,15 +284,16 @@ const tabs = document.querySelectorAll('.auth-tab');
         const selectedFloors = planFloorsSelect.value;
         const selectedStyle = planStyleSelect.value;
 
-        planCards.forEach((card) => {
+        plansGrid.querySelectorAll('.plan-card').forEach((card) => {
           const title = (card.dataset.planTitle || '').toLowerCase();
           const planId = (card.dataset.planId || '').toLowerCase();
           const style = (card.dataset.style || '').toLowerCase();
+          const searchableText = `${title} ${planId} ${style} ${card.textContent}`.toLowerCase();
           const bedrooms = Number(card.dataset.bedrooms || 0);
           const price = Number(card.dataset.price || 0);
           const floors = Number(card.dataset.floors || 0);
 
-          const matchesSearch = !searchValue || title.includes(searchValue) || planId.includes(searchValue) || style.includes(searchValue);
+          const matchesSearch = !searchValue || searchableText.includes(searchValue);
           const matchesBedrooms = !selectedBedrooms || bedrooms === Number(selectedBedrooms);
           const matchesPrice = !selectedPrice || (
             selectedPrice === 'under-2000' ? price < 2000 :
@@ -413,6 +412,11 @@ const tabs = document.querySelectorAll('.auth-tab');
       function addUploadedPlanPreview(listing) {
         const card = document.createElement('article');
         card.className = 'plan-card uploaded-plan-preview';
+        card.dataset.planTitle = listing.title;
+        card.dataset.planId = listing.id;
+        card.dataset.bedrooms = listing.bedrooms;
+        card.dataset.price = listing.price;
+        card.dataset.floors = listing.floors;
 
         const photo = document.createElement('div');
         photo.className = 'plan-photo uploaded-plan-photo';
@@ -519,6 +523,7 @@ const tabs = document.querySelectorAll('.auth-tab');
         body.append(title, verificationStatus, description, priceRow, specs, ownerActions);
         card.append(photo, body);
         plansGrid.appendChild(card);
+        applyPlanFilters();
         return card;
       }
 
