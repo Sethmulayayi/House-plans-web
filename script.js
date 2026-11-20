@@ -277,6 +277,23 @@ const tabs = document.querySelectorAll('.auth-tab');
       const planFloorsSelect = document.getElementById('plan-floors');
       const planStyleSelect = document.getElementById('plan-style');
       const clearPlanFiltersButton = document.getElementById('clear-filters');
+
+      function refreshBedroomsFilterOptions() {
+        const selectedBedrooms = planBedroomsSelect.value;
+        const bedroomCounts = [...new Set(
+          Array.from(plansGrid.querySelectorAll('.plan-card'), (card) => Number(card.dataset.bedrooms))
+            .filter((count) => Number.isInteger(count) && count >= 0),
+        )].sort((first, second) => first - second);
+
+        planBedroomsSelect.replaceChildren(new Option('Any bedroom count', ''));
+        bedroomCounts.forEach((count) => {
+          planBedroomsSelect.add(new Option(`${count} bedrooms`, String(count)));
+        });
+        planBedroomsSelect.value = selectedBedrooms;
+      }
+
+      refreshBedroomsFilterOptions();
+
       function applyPlanFilters() {
         const searchValue = planSearchInput.value.trim().toLowerCase();
         const selectedBedrooms = planBedroomsSelect.value;
@@ -496,6 +513,8 @@ const tabs = document.querySelectorAll('.auth-tab');
             // The card is still removed for this page view if storage is unavailable.
           }
           card.remove();
+          refreshBedroomsFilterOptions();
+          applyPlanFilters();
         });
         ownerActions.appendChild(deleteButton);
 
@@ -523,6 +542,7 @@ const tabs = document.querySelectorAll('.auth-tab');
         body.append(title, verificationStatus, description, priceRow, specs, ownerActions);
         card.append(photo, body);
         plansGrid.appendChild(card);
+        refreshBedroomsFilterOptions();
         applyPlanFilters();
         return card;
       }
